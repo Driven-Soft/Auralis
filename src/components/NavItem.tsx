@@ -19,7 +19,7 @@ const NavItem = ({ to, icon, text, className }: NavItemProps) => {
         hover:scale-105 font-medium ${
           isActive
             ? "bg-selected dark:bg-dark-selected dark:text-texto-selected"
-            : "dark:hover:bg-dark-selected dark:hover:text-texto-selected"
+            : "dark:hover:bg-dark-selected dark:hover:text-texto-selected hover:bg-selected"
         }` + (className ? ` ${className}` : "")
       }
     >

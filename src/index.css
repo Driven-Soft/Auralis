@@ -16,8 +16,14 @@
   --color-dark-selected: #004080;
   --color-texto-selected: #99ccff;
 
-  --color-background: #ffffff;
-  --color-dark-background: #1f2937;
+  --color-background: #f7fafc;
+  --color-dark-background: #1f2a38;
+
+  --color-background-header: #ffffff;
+  --color-dark-background-header: #243040;
+
+  --shadow-glow-blue: 0 0 20px hsl(210 100% 56% / 0.4);
+  --shadow-glow-green: 0 0 20px hsl(150 100% 40% / 0.4);
 }
 
 @layer base {
