@@ -25,8 +25,8 @@ const Hero = ({ icon, title, text, className, iconClassName }: HeroProps) => {
           {sizedIcon}
         </div>
       )}
-      <h2 className="text-xl font-bold">{title}</h2>
-      <p className="text-center">{text}</p>
+      <h2 className="text-5xl pb-5 text-texto-primary font-bold dark:text-texto-secondary">{title}</h2>
+      <p className="text-xl font-normal text-center text-gray-500 dark:text-gray-400">{text}</p>
     </div>
   );
 };

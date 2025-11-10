@@ -5,10 +5,12 @@ const Home = () => {
   return (
     <Wrapper>
       <section>
-        <Hero
-          title="Bem-vindo(a) ao Auralis"
-          text="Sua plataforma de bem-estar profissional"
-        />
+        <div className="pt-12">
+          <Hero
+            title="Bem-vindo(a) ao Auralis"
+            text="Sua plataforma de bem-estar profissional"
+          />
+        </div>
       </section>
     </Wrapper>
   );
