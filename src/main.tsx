@@ -6,6 +6,12 @@ import Root from "./routes/Root";
 import Home from "./routes/Home";
 import Contato from "./routes/Contato";
 import "./index.css";
+import Faq from "./routes/Faq";
+import Integrantes from "./routes/Integrantes";
+import Dicas from "./routes/Dicas";
+import Sobre from "./routes/Sobre";
+import Dashboard from "./routes/Dashboard";
+import Cadastro from "./routes/Cadastro";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +21,12 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home/> },
       { path: "contato", element: <Contato /> },
+      { path: "faq", element: <Faq /> },
+      { path: "integrantes", element: <Integrantes /> },
+      { path: "dicas", element: <Dicas /> },
+      { path: "sobre", element: <Sobre /> },
+      { path: "dashboard", element: <Dashboard /> },
+      { path: "cadastro", element: <Cadastro /> },
     ],
   },
 ]);
