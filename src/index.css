@@ -1,7 +1,27 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #00bfff;
+  --color-secondary: #1f8fff;
+
+  --color-dark-primary: #272725;
+  --color-dark-secondary: #10b981;
+
+  --color-texto-primary: #344257;
+  --color-texto-secondary: #f7fafc;
+
+  --color-selected: #e6f2ff;
+  --color-dark-selected: #004080;
+  --color-texto-selected: #99ccff;
+
+  --color-background: #ffffff;
+  --color-dark-background: #1f2937;
+}
+
 @layer base {
-    body {
-        font-family: 'Lexend', sans-serif;
-    }
+  body {
+    font-family: "Lexend", sans-serif;
+  }
 }
