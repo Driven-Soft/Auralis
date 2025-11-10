@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <Wrapper>
       <section>
-        <div className="pt-12">
+        <div className="py-12">
           <Hero
             title="Bem-vindo(a) ao Auralis"
             text="Sua plataforma de bem-estar profissional"

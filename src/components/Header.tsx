@@ -6,7 +6,7 @@ import NavItem from "./NavItem";
 
 const Header = () => {
   return (
-    <header className="flex items-center py-2 gap-1 bg-background-header dark:bg-dark-background-header shadow-[0_2px_5px_rgba(0,0,0,0.3)] top-0 z-40 min-h-[34px] sm:gap-3 md:gap-4 text-texto-primary dark:text-texto-secondary">
+    <header className="flex items-center py-2 gap-1 bg-background-secondary dark:bg-dark-background-secondary shadow-[0_2px_5px_rgba(0,0,0,0.3)] top-0 z-40 min-h-[34px] sm:gap-3 md:gap-4 text-texto-primary dark:text-texto-secondary">
       <div className="flex items-center mx-2 justify-between w-full p-2">
         <div className="flex flex-row text-center items-center gap-3">
           <Link
