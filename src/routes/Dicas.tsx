@@ -71,6 +71,7 @@ const Dicas = () => {
             icon={getIcon(card.category)}
             title={card.title}
             text={card.text}
+            category={card.category}
           />
         ))}
       </div>

@@ -30,4 +30,11 @@
   body {
     font-family: "Lexend", sans-serif;
   }
+  /* utility to force GPU compositing which often removes hairline seams */
+  /*correção de BUG que aparecem linhas diagonais aleatórias em páginas*/
+  .force-composite {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+  }
 }
