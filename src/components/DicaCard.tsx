@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 
-interface IconCardProps {
+interface DicaCardProps {
   icon: ReactNode;
   title: string;
   text: string;
   colorClass?: string;
 }
 
-const IconCard = ({ icon, title, text, colorClass }: IconCardProps) => {
+const DicaCard = ({ icon, title, text, colorClass }: DicaCardProps) => {
   return (
     <div className="bg-white rounded-2xl shadow-md p-5 flex flex-col items-center text-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
       <div
@@ -21,4 +21,4 @@ const IconCard = ({ icon, title, text, colorClass }: IconCardProps) => {
   );
 }
   
-export default IconCard
+export default DicaCard

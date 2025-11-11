@@ -1,6 +1,6 @@
 import type { FilterType } from "./filterType";
 
-export interface InfoCardData {
+export interface DicaCardData {
   id: string;
   title: string;
   text: string;

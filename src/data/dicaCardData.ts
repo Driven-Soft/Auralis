@@ -1,6 +1,6 @@
-import type { InfoCardData } from "../types/infoCardType";
+import type { DicaCardData } from "../types/dicaCardType";
 
-export const cards: InfoCardData[] = [
+export const cards: DicaCardData[] = [
   { id: "1", title: "Sono reparador", text: "Dormir bem restaura energia.", category: "sleep" },
   { id: "2", title: "Controle de estresse", text: "Gerencie o estresse diário.", category: "stress" },
   { id: "3", title: "Exercício físico", text: "Movimente-se todos os dias.", category: "exercise" },

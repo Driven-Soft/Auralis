@@ -1,13 +1,21 @@
-import { Moon, Brain, Dumbbell, Apple, Droplets, Clock, Lightbulb } from "lucide-react";
+import {
+  Moon,
+  Brain,
+  Dumbbell,
+  Apple,
+  Droplets,
+  Clock,
+  Lightbulb,
+} from "lucide-react";
 
 import { createElement, useState } from "react";
 import type { FilterType } from "../types/filterType";
 import { filters } from "../data/filtersData";
+import { cards } from "../data/dicaCardData";
 import Hero from "../components/Hero";
 import Wrapper from "../components/Wrapper";
-import { FilterButton } from "../components/FilterButton";
-import IconCard from "../components/IconCard";
-import { cards } from "../data/infoCardData";
+import FilterButton from "../components/FilterButton";
+import IconCard from "../components/DicaCard";
 
 function getIcon(category: FilterType) {
   switch (category) {
@@ -44,27 +52,28 @@ const Dicas = () => {
         />
       </section>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-6">
-          {filters.map((f) => (
-            <FilterButton
-              key={f.key}
-              label={f.label}
-              active={filter === f.key}
-              onClick={() => setFilter(f.key)}
-            />
-          ))}
-        </div>
+      <div className="flex flex-wrap justify-center gap-2 mb-6">
+        {filters.map((f) => (
+          <FilterButton
+            key={f.key}
+            label={f.label}
+            active={filter === f.key}
+            onClick={() => setFilter(f.key)}
+            icon={getIcon(f.key)}
+          />
+        ))}
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredCards.map((card) => (
-            <IconCard
-              key={card.id}
-              icon={getIcon(card.category)}
-              title={card.title}
-              text={card.text}
-            />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredCards.map((card) => (
+          <IconCard
+            key={card.id}
+            icon={getIcon(card.category)}
+            title={card.title}
+            text={card.text}
+          />
+        ))}
+      </div>
     </Wrapper>
   );
 };
