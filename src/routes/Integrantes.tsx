@@ -5,6 +5,7 @@ import { integrantes } from "../data/integrantes";
 import IntegranteCard from "../components/IntegranteCard";
 import CardWrapper from "../components/CardWrapper";
 import ButtonWrapper from "../components/ButtonWrapper";
+import AuralisLogo from "../assets/images/icons/AuralisLogo.png";
 
 const Integrantes = () => {
   return (
@@ -26,6 +27,13 @@ const Integrantes = () => {
 
       <section className="pb-12 mx-12">
         <CardWrapper className="flex-col gap-4 text-center">
+        <div className="shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-10 md:h-10 lg:w-12 lg:h-12 transition-all duration-200 rounded-lg">
+          <img
+            src={AuralisLogo}
+            alt="Auralis"
+            className="w-full h-full object-contain"
+          />
+        </div>
           <h1 className="text-2xl font-bold text-texto-primary dark:text-texto-secondary">
             Junte-se a Nós
           </h1>
