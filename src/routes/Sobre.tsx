@@ -21,7 +21,7 @@ const Sobre = () => {
           <h1 className="py-2 text-2xl font-bold mb-2 text-texto-primary dark:text-texto-secondary">
             Nossa Missão
           </h1>
-          <p className="px-4 py-2 text-texto-primary dark:text-texto-secondary">
+          <p className="px-4 py-2 text-texto-primary dark:text-gray-300">
             O Auralis nasceu da necessidade de criar uma ferramenta que ajudasse
             profissionais a manterem o equilíbrio entre suas responsabilidades
             de trabalho e sua saúde física e emocional. Acreditamos que o
@@ -57,7 +57,7 @@ const Sobre = () => {
           <h1 className="py-2 text-2xl font-bold mb-2 text-texto-primary dark:text-texto-secondary">
             Como Funciona
           </h1>
-          <div className="flex gap-4 flex-col px-4 py-2 text-texto-primary dark:text-texto-secondary">
+          <div className="flex gap-4 flex-col px-4 py-2 text-texto-primary dark:text-gray-300">
             <p>
               O Auralis utiliza um sistema de pontuação de 0 a 100 que considera
               seis dimensões principais do seu bem-estar: qualidade do sono,

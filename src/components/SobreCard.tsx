@@ -16,7 +16,7 @@ const SobreCard = ({ icon, title, text, className }: SobreCardProps) => {
         <h3 className="text-xl font-medium mb-2 text-texto-primary dark:text-texto-secondary">
           {title}
         </h3>
-        <p className="font-normal text-gray-500 dark:text-texto-secondary">{text}</p>
+        <p className="font-normal text-gray-500 dark:text-gray-400">{text}</p>
       </div>
     </CardWrapper>
   );
