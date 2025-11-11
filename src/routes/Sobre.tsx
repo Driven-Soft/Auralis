@@ -60,9 +60,9 @@ const Sobre = () => {
           <div className="flex gap-4 flex-col px-4 py-2 text-texto-primary dark:text-gray-300">
             <p>
               O Auralis utiliza um sistema de pontuação de 0 a 100 que considera
-              seis dimensões principais do seu bem-estar: qualidade do sono,
+              sete dimensões principais do seu bem-estar: qualidade do sono,
               nível de estresse, atividade física, hidratação, tempo de
-              exposição a telas e horas trabalhadas.
+              exposição a telas, tempo de exposição ao sol e horas trabalhadas.
             </p>
             <p>
               Ao registrar seus dados diariamente, você pode visualizar

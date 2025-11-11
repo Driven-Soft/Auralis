@@ -4,7 +4,7 @@ interface WrapperProps {
 
 const Wrapper = ({ children }: WrapperProps) => {
   return (
-    <section className="bg-background dark:bg-dark-background min-h-screen">
+    <section className="bg-background dark:bg-dark-background min-h-screen py-2">
         {children}
     </section>
   )
