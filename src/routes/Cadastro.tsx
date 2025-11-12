@@ -5,6 +5,7 @@ import Wrapper from "../components/Wrapper";
 import CardWrapper from "../components/CardWrapper";
 import type { cadastroFormType } from "../types/cadastroFormType";
 import LabelWrapper from "../components/LabelWrapper";
+import Hero from "../components/Hero";
 
 const Cadastro = () => {
   const [success, setSuccess] = useState<string | null>(null);
@@ -38,12 +39,15 @@ const Cadastro = () => {
 
   return (
     <Wrapper>
-      <section className="flex flex-col items-center text-center p-4">
-        <div className="bg-linear-to-r from-primary to-secondary rounded-full p-3">
-          <CircleUserRound size={48} className="text-white" />
+      <section>
+        <div className="pt-4 sm:pt-0 pb-4">
+          <Hero
+            icon={<CircleUserRound color="white" />}
+            iconClassName="bg-linear-to-r from-primary to-secondary shadow-glow-blue"
+            title="Novo perfil"
+            text="Crie seu perfil e comece sua jornada de bem-estar"
+          />
         </div>
-        <h1 className="text-3xl sm:text-4xl pt-5 text-texto-primary font-bold dark:text-white">Novo Perfil</h1>
-        <p className="text-texto-primary pb-5 pt-2 dark:text-texto-secondary">Crie seu perfil e comece sua jornada de bem-estar</p>
       </section>
 
       <CardWrapper className="w-[90%] md:w-[60%] lg:w-[40%] pb-6 mb-8">

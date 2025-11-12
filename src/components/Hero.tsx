@@ -21,7 +21,7 @@ const Hero = ({ icon, title, text, className, iconClassName }: HeroProps) => {
       className={`flex flex-col items-center text-center p-4 ${className ?? ""}`}
     >
       {sizedIcon && (
-        <div className={`mt-2 mb-4 sm:my-10 p-4 rounded-2xl ${iconClassName ?? ""}`}>
+        <div className={`mt-2 mb-4 p-4 rounded-2xl ${iconClassName ?? ""}`}>
           {sizedIcon}
         </div>
       )}
