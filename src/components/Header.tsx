@@ -52,7 +52,7 @@ const Header = () => {
       </header>
 
       <div
-        className={`fixed top-0 border-l border-gray-200 right-0 h-full bg-linear-to-t from-gray-100 to-white shadow-lg z-50
+        className={`fixed top-0 border-l border-gray-200 dark:border-gray-700 right-0 h-full bg-linear-to-t from-gray-100 to-white shadow-lg z-50 dark:bg-linear-to-t dark:from-gray-900 dark:to-gray-800
 
           transition-all duration-500 ease-in-out
           ${mobileMenuOpen ? "w-64" : "w-0"} overflow-hidden`}
@@ -61,7 +61,7 @@ const Header = () => {
         {mobileMenuOpen && (
           <button
             onClick={() => setMobileMenuOpen(false)}
-            className="absolute top-4 right-4 text-texto-primary dark:text-texto-secondary text-2xl p-2 bg-gray-100 border-gray-200 border rounded-lg"
+            className="absolute top-4 right-4 text-texto-primary dark:text-texto-secondary text-2xl p-2 bg-gray-100 dark:bg-gray-700 border-gray-200 dark:border-gray-600 border rounded-lg"
             aria-label="Fechar menu"
           >
             <X className="w-5 h-5" />
@@ -76,7 +76,7 @@ const Header = () => {
               <Link
                 to="/sobre"
                 onClick={() => setMobileMenuOpen(false)}
-                className="border-gray-200 border flex flex-1 text-left items-center gap-3 text-texto-primary dark:text-texto-secondary text-lg font-medium bg-gray-100 rounded-lg p-3"
+                className="border-gray-200 dark:border-gray-600 dark:bg-gray-800 border flex flex-1 text-left items-center gap-3 text-texto-primary dark:text-texto-secondary text-lg font-medium bg-gray-100 rounded-lg p-3"
               >
                 <Info className="w-5 h-5" />
                 <p className="text-center absolute left-1/2 -translate-x-1/2">
@@ -89,7 +89,7 @@ const Header = () => {
               <Link
                 to="/dicas"
                 onClick={() => setMobileMenuOpen(false)}
-                className="border-gray-200 border flex flex-1 text-left items-center gap-3 text-texto-primary dark:text-texto-secondary text-lg font-medium bg-gray-100 rounded-lg p-3"
+                className="border-gray-200 dark:border-gray-600 dark:bg-gray-800 border flex flex-1 text-left items-center gap-3 text-texto-primary dark:text-texto-secondary text-lg font-medium bg-gray-100 rounded-lg p-3"
               >
                 <Lightbulb className="w-5 h-5" />
                 <p className="text-center absolute left-1/2 -translate-x-1/2">
@@ -102,7 +102,7 @@ const Header = () => {
               <Link
                 to="/faq"
                 onClick={() => setMobileMenuOpen(false)}
-                className="border-gray-200 border flex flex-1 text-left items-center gap-3 text-texto-primary dark:text-texto-secondary text-lg font-medium bg-gray-100 rounded-lg p-3"
+                className="border-gray-200 dark:border-gray-600 dark:bg-gray-800 border flex flex-1 text-left items-center gap-3 text-texto-primary dark:text-texto-secondary text-lg font-medium bg-gray-100 rounded-lg p-3"
               >
                 <CircleQuestionMark className="w-5 h-5" />
                 <p className="text-center absolute left-1/2 -translate-x-1/2">
@@ -115,7 +115,7 @@ const Header = () => {
               <Link
                 to="/integrantes"
                 onClick={() => setMobileMenuOpen(false)}
-                className="border-gray-200 border flex flex-1 text-left items-center gap-3 text-texto-primary dark:text-texto-secondary text-lg font-medium bg-gray-100 rounded-lg p-3"
+                className="border-gray-200 dark:border-gray-600 dark:bg-gray-800 border flex flex-1 text-left items-center gap-3 text-texto-primary dark:text-texto-secondary text-lg font-medium bg-gray-100 rounded-lg p-3"
               >
                 <Users className="w-5 h-5" />
                 <p className="text-center absolute left-1/2 -translate-x-1/2">

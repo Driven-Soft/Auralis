@@ -18,7 +18,7 @@ const Hero = ({ icon, title, text, className, iconClassName }: HeroProps) => {
 
   return (
     <div
-      className={`flex flex-col items-center p-4 ${className ?? ""}`}
+      className={`flex flex-col items-center text-center p-4 ${className ?? ""}`}
     >
       {sizedIcon && (
         <div className={`my-10 p-4 rounded-2xl ${iconClassName ?? ""}`}>
@@ -26,7 +26,7 @@ const Hero = ({ icon, title, text, className, iconClassName }: HeroProps) => {
         </div>
       )}
       <h2 className="text-5xl pb-5 text-texto-primary font-bold dark:text-texto-secondary">{title}</h2>
-      <p className="text-xl font-normal text-center text-gray-500 dark:text-gray-400">{text}</p>
+      <p className="text-xl font-normal text-gray-500 dark:text-gray-400">{text}</p>
     </div>
   );
 };
