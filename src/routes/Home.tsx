@@ -2,6 +2,7 @@ import Hero from "../components/Hero";
 import NewUser from "../components/NewUser";
 import UserCard from "../components/UserCard";
 import Wrapper from "../components/Wrapper";
+import AuralisLogo from "../assets/images/icons/AuralisLogo.png";
 
 const Home = () => {
   return (
@@ -15,7 +16,7 @@ const Home = () => {
         </div>
       </section>
     <div>
-      <img src="/src/assets/images/icons/AuralisLogo.png"
+      <img src={AuralisLogo}
       className="mx-auto w-16 h-16"
       alt="" />
     </div>

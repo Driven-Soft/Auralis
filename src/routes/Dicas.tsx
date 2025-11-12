@@ -1,12 +1,4 @@
-import {
-  Moon,
-  Brain,
-  Dumbbell,
-  Apple,
-  Droplets,
-  Clock,
-  Lightbulb,
-} from "lucide-react";
+import { Moon, Brain, Dumbbell, Apple, Droplets, Clock, Lightbulb } from "lucide-react";
 
 import { createElement, useState } from "react";
 import type { FilterType } from "../types/filterType";
@@ -15,7 +7,7 @@ import { cards } from "../data/dicaCardData";
 import Hero from "../components/Hero";
 import Wrapper from "../components/Wrapper";
 import FilterButton from "../components/FilterButton";
-import IconCard from "../components/DicaCard";
+import DicaCard from "../components/DicaCard";
 
 function getIcon(category: FilterType) {
   switch (category) {
@@ -66,7 +58,7 @@ const Dicas = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-[90%] justify-center mx-auto mb-12">
         {filteredCards.map((card) => (
-          <IconCard
+          <DicaCard
             key={card.id}
             icon={getIcon(card.category)}
             title={card.title}
