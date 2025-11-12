@@ -17,7 +17,7 @@ const Sobre = () => {
       </section>
 
       <section>
-        <CardWrapper className="flex-col w-[80%] mx-auto my-10">
+        <CardWrapper className="flex-col w-[90%] sm:w-[80%] mx-auto my-10">
           <h1 className="py-2 text-2xl font-bold mb-2 text-texto-primary dark:text-texto-secondary">
             Nossa Missão
           </h1>
@@ -30,7 +30,7 @@ const Sobre = () => {
           </p>
         </CardWrapper>
 
-        <div className="grid grid-rows-1 w-[80%] lg:grid-cols-2 gap-6 my-10 mx-auto">
+        <div className="grid grid-rows-1 w-[90%] sm:w-[80%] lg:grid-cols-2 gap-6 my-10 mx-auto">
           <SobreCard
             icon={<HeartIcon size={30} className="text-primary" />}
             title="Bem-Estar Integral"
@@ -53,7 +53,7 @@ const Sobre = () => {
           />
         </div>
 
-        <CardWrapper className="flex-col w-[80%] mx-auto my-10">
+        <CardWrapper className="flex-col w-[90%] sm:w-[80%] mx-auto my-10">
           <h1 className="py-2 text-2xl font-bold mb-2 text-texto-primary dark:text-texto-secondary">
             Como Funciona
           </h1>

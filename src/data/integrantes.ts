@@ -39,7 +39,7 @@ export const integrantes: Integrante[] = [
     rm: "565119",
     img: henriqueImg,
     git: "https://github.com/HenriqueCTorres",
-    capacitacao: "Cientista de Dados & IA",
+    capacitacao: "Desenvolvedor Back End & IA",
     linkedIn: "https://www.linkedin.com/in/henrique-cunha-torres-44940634a/",
     email: "henriquect08@gmail.com",
     descricao: "Especialista em análise de dados de saúde e criação de métricas significativas para qualidade de vida."

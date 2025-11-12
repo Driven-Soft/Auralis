@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const NewUser = () => {
   return (
     <Link
-      to="/novo-usuario"
+      to="/cadastro"
       className="
         flex items-center justify-self-center rounded-lg border-gray-200
         dark:border-gray-700 dark:bg-dark-background-secondary

@@ -17,8 +17,8 @@ const Faq = () => {
       </section>
 
       <section>
-        <CardWrapper className="flex-col w-[80%] mx-auto my-10">
-          <div className="flex flex-col gap-4 px-4 py-2">
+        <CardWrapper className="flex-col w-[95%] sm:w-[80%] mx-auto my-10">
+          <div className="flex flex-col gap-4 px-0 sm:px-4 py-2">
             <FaqCard
               titulo="Como é calculado o Score de bem-estar?"
               detalhes="O Score de Bem-Estar é calculado com base em seis métricas principais: sono (ideal 7-8h), estresse (escala 1-10), atividade física (mínimo 30min), hidratação (2-2.5L), tempo de tela (máximo 8h) e horas trabalhadas (ideal 8h). Cada métrica contribui para a pontuação final de 0 a 100."
@@ -67,7 +67,7 @@ const Faq = () => {
         </CardWrapper>
 
         <section
-          className="flex flex-col w-[80%] gap-4 mx-auto my-10 text-left justify-self-center rounded-lg border border-gray-200
+          className="flex flex-col w-[90%] sm:w-[80%] gap-4 mx-auto my-8 sm:my-10 text-left justify-self-center rounded-lg border border-gray-200
          dark:border-gray-700 bg-[#f2f8fc] dark:bg-[#16304d]
          shadow-md p-6 hover:shadow-lg transition-all duration-200 ease-in-out"
         >

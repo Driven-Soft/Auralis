@@ -20,7 +20,7 @@ const FaqCard = ({ titulo, detalhes, className }: FaqCardProps) => {
       className={`cursor-pointer  ${className || ""}`}
     >
       <div
-        className={`flex justify-between items-center px-4 py-1 transition-colors duration-100 ease-in-out hover:bg-[#f5f5f5] dark:hover:bg-texto-primary
+        className={`flex justify-between items-center px-0 sm:px-4 py-1 transition-colors duration-100 ease-in-out hover:bg-[#f5f5f5] dark:hover:bg-texto-primary
         ${mostrarDetalhes ? "rounded-t-lg" : "rounded-lg"}`}
       >
         <p>

@@ -16,7 +16,7 @@ const Home = () => {
       </section>
     <div>
       <img src="/src/assets/images/icons/AuralisLogo.png"
-      className="mx-auto w-18 h-18"
+      className="mx-auto w-16 h-16"
       alt="" />
     </div>
 
