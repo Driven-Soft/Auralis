@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import AuralisLogoWhite from "../assets/images/icons/AuralisLogoWhite.png";
 import DarkModeToggle from "./DarkModeToggle";
-import { CircleQuestionMark, Info, Lightbulb, Users, Menu, X } from "lucide-react";
+import {
+  CircleQuestionMark,
+  Info,
+  Lightbulb,
+  Users,
+  Menu,
+  X,
+  HomeIcon,
+} from "lucide-react";
 import NavItem from "./NavItem";
 import { useState } from "react";
 
@@ -34,6 +42,11 @@ const Header = () => {
               <NavItem to="/dicas" icon={<Lightbulb />} text="Dicas" />
               <NavItem to="/faq" icon={<CircleQuestionMark />} text="FAQ" />
               <NavItem to="/integrantes" icon={<Users />} text="Integrantes" />
+              <div className="bg-linear-to-r from-primary to-secondary rounded-xl shadow-glow-blue p-2 text-center font-bold text-white">
+                <Link to="/cadastro">
+                  <p>Cadastro</p>
+                </Link>
+              </div>
               <DarkModeToggle />
             </div>
 
@@ -71,6 +84,20 @@ const Header = () => {
         {/* Conteúdo do menu: links em coluna */}
         <nav className="mt-18 px-6">
           <ul className="flex flex-col gap-4 justify-between w-full">
+            <hr className="w-full border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
+
+            <li>
+              <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="border-gray-200 dark:border-gray-600 dark:bg-gray-800 border flex flex-1 text-left items-center gap-3 text-texto-primary dark:text-texto-secondary text-lg font-medium bg-gray-100 rounded-lg p-3"
+              >
+                <HomeIcon className="w-5 h-5" />
+                <p className="text-center absolute left-1/2 -translate-x-1/2">
+                  Home
+                </p>
+              </Link>
+            </li>
             <hr className="w-full border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
             <li>
               <Link
@@ -123,7 +150,13 @@ const Header = () => {
                 </p>
               </Link>
             </li>
-            <hr className="w-full border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
+            <li>
+              <div className="bg-linear-to-r from-primary to-secondary rounded-lg shadow-glow-blue p-2 text-center font-bold text-white">
+                <Link to="/cadastro" onClick={() => setMobileMenuOpen(false)}>
+                  <p>Cadastro</p>
+                </Link>
+              </div>
+            </li>
           </ul>
         </nav>
       </div>

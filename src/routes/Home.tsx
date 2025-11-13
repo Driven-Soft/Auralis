@@ -20,7 +20,7 @@ const Home = () => {
         <h1 className="text-3xl sm:text-6xl pt-5 text-texto-primary font-bold dark:text-white">
           Auralis
         </h1>
-        <p className="text-2xl text-gray-500 pb-5 pt-4 dark:text-gray-500">
+        <p className="text-2xl text-gray-500 pb-5 pt-4 dark:text-gray-400">
           Sua plataforma de bem-estar profissional
         </p>
       </section>
