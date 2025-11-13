@@ -42,11 +42,12 @@ const Header = () => {
               <NavItem to="/dicas" icon={<Lightbulb />} text="Dicas" />
               <NavItem to="/faq" icon={<CircleQuestionMark />} text="FAQ" />
               <NavItem to="/integrantes" icon={<Users />} text="Integrantes" />
-              <div className="bg-linear-to-r from-primary to-secondary rounded-xl shadow-glow-blue py-2 px-4 text-center font-bold text-white">
-                <Link to="/#login">
-                  <p>Login</p>
-                </Link>
-              </div>
+              <Link
+                to="/#login"
+                className="bg-linear-to-r from-primary to-secondary rounded-xl hover:scale-110 transition-all duration-200 ease-in-out shadow-glow-blue py-2 px-4 text-center font-bold text-white"
+              >
+                Login
+              </Link>
               <DarkModeToggle />
             </div>
 
@@ -164,9 +165,7 @@ const Header = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="border-gray-400 dark:border-gray-600 dark:bg-gray-800 border flex flex-1 items-center gap-3 text-texto-primary dark:text-texto-secondary text-lg font-medium bg-gray-200 rounded-lg text-center p-1"
               >
-                <p className="w-full">
-                  Cadastre-se
-                </p>
+                <p className="w-full">Cadastre-se</p>
               </Link>
             </li>
           </ul>
