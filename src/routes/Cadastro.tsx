@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CircleUserRound } from "lucide-react";
 import { useForm } from "react-hook-form";
 import Wrapper from "../components/Wrapper";
@@ -16,6 +16,7 @@ const Cadastro = () => {
     formState: { errors, isSubmitting },
     reset,
     watch,
+    setValue,
   } = useForm<cadastroFormType>({
     defaultValues: {
       nome: "",
@@ -28,6 +29,41 @@ const Cadastro = () => {
 
   const nascimentoValue = watch("nascimento");
   const generoValue = watch("genero");
+
+  useEffect(() => {
+    register("nascimento", {
+      required: "Data de nascimento é obrigatória",
+      validate: (v: string) => {
+        if (!v) return "Data de nascimento é obrigatória";
+        const re = /^\d{2}\/\d{2}\/\d{4}$/;
+        if (!re.test(v)) return "Formato de data inválido (dd/mm/aaaa)";
+        const [d, m, y] = v.split("/").map(Number);
+        const date = new Date(y, m - 1, d);
+        if (
+          date.getFullYear() !== y ||
+          date.getMonth() !== m - 1 ||
+          date.getDate() !== d
+        )
+          return "Data inválida";
+        const today = new Date();
+        const todayOnly = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate()
+        );
+        if (date.getTime() > todayOnly.getTime())
+          return "Data de nascimento não pode ser posterior à data atual";
+        return true;
+      },
+    });
+  }, [register]);
+
+  const formatDateInput = (raw: string) => {
+    const digits = raw.replace(/\D/g, "").slice(0, 8);
+    if (digits.length <= 2) return digits;
+    if (digits.length <= 4) return digits.replace(/(\d{2})(\d+)/, "$1/$2");
+    return digits.replace(/(\d{2})(\d{2})(\d{1,4})/, "$1/$2/$3");
+  };
 
   const onSubmit = async (data: cadastroFormType) => {
     // CHAMADA DE API
@@ -90,10 +126,12 @@ const Cadastro = () => {
           <div className="flex flex-col">
             <LabelWrapper>Data de nascimento</LabelWrapper>
             <input
-              type="date"
-              {...register("nascimento", {
-                required: "Data de nascimento é obrigatória",
-              })}
+              type="text"
+              value={nascimentoValue || ""}
+              onChange={(e) => {
+                const formatted = formatDateInput(e.target.value);
+                setValue("nascimento", formatted, { shouldValidate: true });
+              }}
               placeholder="dd/mm/aaaa"
               className={`text-gray-800 px-3 dark:text-white w-full input input-bordered bg-blue-50 p-2 rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-600 ${
                 !nascimentoValue
@@ -166,8 +204,10 @@ const Cadastro = () => {
             >
               Criar perfil
             </button>
-            {success && <p className="text-sm text-green-600">{success}</p>}
           </div>
+          {success && (
+            <p className="text-sm text-center text-green-600">{success}</p>
+          )}
         </form>
       </CardWrapper>
     </Wrapper>
