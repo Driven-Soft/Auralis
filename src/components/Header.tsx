@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuralisLogoWhite from "../assets/images/icons/AuralisLogoWhite.png";
 import DarkModeToggle from "./DarkModeToggle";
 import {
@@ -12,9 +12,12 @@ import {
 } from "lucide-react";
 import NavItem from "./NavItem";
 import { useState } from "react";
+import { useUser } from "../context/User/useUser";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const { userEmail, setUserEmail, setUserSenha } = useUser();
 
   return (
     <>
@@ -42,12 +45,25 @@ const Header = () => {
               <NavItem to="/dicas" icon={<Lightbulb />} text="Dicas" />
               <NavItem to="/faq" icon={<CircleQuestionMark />} text="FAQ" />
               <NavItem to="/integrantes" icon={<Users />} text="Integrantes" />
-              <Link
-                to="/#login"
-                className="bg-linear-to-r from-primary to-secondary rounded-xl hover:scale-110 transition-all duration-200 ease-in-out shadow-glow-blue py-2 px-4 text-center font-bold text-white"
-              >
-                Login
-              </Link>
+              {userEmail ? (
+                <button
+                  onClick={() => {
+                    setUserEmail("");
+                    setUserSenha("");
+                    navigate("/");
+                  }}
+                  className="bg-linear-to-r from-primary to-secondary rounded-xl hover:scale-110 transition-all duration-200 ease-in-out shadow-glow-blue py-2 px-4 text-center font-bold text-white"
+                >
+                  Sair
+                </button>
+              ) : (
+                <Link
+                  to="/#login"
+                  className="bg-linear-to-r from-primary to-secondary rounded-xl hover:scale-110 transition-all duration-200 ease-in-out shadow-glow-blue py-2 px-4 text-center font-bold text-white"
+                >
+                  Login
+                </Link>
+              )}
               <DarkModeToggle />
             </div>
 
@@ -153,11 +169,26 @@ const Header = () => {
             </li>
             <hr className="w-full border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
             <li>
-              <div className="bg-linear-to-r from-primary to-secondary rounded-lg shadow-glow-blue p-2 text-center font-bold text-white">
-                <Link to="/#login" onClick={() => setMobileMenuOpen(false)}>
-                  <p>Login</p>
-                </Link>
-              </div>
+              {userEmail ? (
+                <div className="bg-linear-to-r from-primary to-secondary rounded-lg shadow-glow-blue p-2 text-center font-bold text-white">
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setUserEmail("");
+                      setUserSenha("");
+                      navigate("/");
+                    }}
+                  >
+                    <p>Sair</p>
+                  </button>
+                </div>
+              ) : (
+                <div className="bg-linear-to-r from-primary to-secondary rounded-lg shadow-glow-blue p-2 text-center font-bold text-white">
+                  <Link to="/#login" onClick={() => setMobileMenuOpen(false)}>
+                    <p>Login</p>
+                  </Link>
+                </div>
+              )}
             </li>
             <li>
               <Link

@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./routes/ErrorPage";
 import Root from "./routes/Root";
-import Home from "./routes/Home";
+import IndexRedirect from "./routes/IndexRedirect";
 import Contato from "./routes/Contato";
 import "./index.css";
 import Faq from "./routes/Faq";
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Home /> },
+      { index: true, element: <IndexRedirect /> },
       { path: "contato", element: <Contato /> },
       { path: "faq", element: <Faq /> },
       { path: "integrantes", element: <Integrantes /> },
