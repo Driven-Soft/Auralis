@@ -1,6 +1,8 @@
 import HomeCard from "../components/HomeCard";
 import LoginCard from "../components/LoginCard";
 import Wrapper from "../components/Wrapper";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import {
   ActivityIcon,
   BowArrow,
@@ -11,6 +13,17 @@ import {
 } from "lucide-react";
 
 const Home = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === "#login") {
+      const el = document.getElementById("login");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [location]);
+
   return (
     <Wrapper>
       <section className="flex flex-col items-center text-center px-4 md:py-8 pt-8">
@@ -74,7 +87,7 @@ const Home = () => {
         <hr className="w-full md:w-[70%] self-center my-4 border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
       </section>
 
-      <section className="w-full">
+      <section id="login" className="w-full">
         <LoginCard />
       </section>
 
@@ -88,14 +101,14 @@ const Home = () => {
         </p>
       </div>
 
-    {/* !!!TRECHO DISPONÍVEL APENAS NO MOBILE!!! */}
-    <div className="flex flex-col md:hidden text-center font-bold text-2xl text-secondary mx-auto w-[80%] mb-2">
-      <hr className="w-full md:w-[70%] self-center my-4 border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
-      <p>Conheça nossos recursos</p>
-      <hr className="w-full md:w-[70%] self-center my-4 border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
-    </div>
+      {/* !!!TRECHO DISPONÍVEL APENAS NO MOBILE!!! */}
+      <div className="flex flex-col md:hidden text-center font-bold text-2xl text-secondary mx-auto w-[80%] mb-2">
+        <hr className="w-full md:w-[70%] self-center my-4 border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
+        <p>Conheça nossos recursos</p>
+        <hr className="w-full md:w-[70%] self-center my-4 border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
+      </div>
 
-    <section className="w-[95%] mx-auto mb-8 md:mb-0">
+      <section className="w-[95%] mx-auto mb-8 md:mb-0">
         <div className="grid md:hidden grid-cols-1 gap-4">
           <HomeCard
             icon={<ActivityIcon />}

@@ -42,9 +42,9 @@ const Header = () => {
               <NavItem to="/dicas" icon={<Lightbulb />} text="Dicas" />
               <NavItem to="/faq" icon={<CircleQuestionMark />} text="FAQ" />
               <NavItem to="/integrantes" icon={<Users />} text="Integrantes" />
-              <div className="bg-linear-to-r from-primary to-secondary rounded-xl shadow-glow-blue p-2 text-center font-bold text-white">
-                <Link to="/cadastro">
-                  <p>Cadastro</p>
+              <div className="bg-linear-to-r from-primary to-secondary rounded-xl shadow-glow-blue py-2 px-4 text-center font-bold text-white">
+                <Link to="/#login">
+                  <p>Login</p>
                 </Link>
               </div>
               <DarkModeToggle />
@@ -150,12 +150,24 @@ const Header = () => {
                 </p>
               </Link>
             </li>
+            <hr className="w-full border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
             <li>
               <div className="bg-linear-to-r from-primary to-secondary rounded-lg shadow-glow-blue p-2 text-center font-bold text-white">
-                <Link to="/cadastro" onClick={() => setMobileMenuOpen(false)}>
-                  <p>Cadastro</p>
+                <Link to="/#login" onClick={() => setMobileMenuOpen(false)}>
+                  <p>Login</p>
                 </Link>
               </div>
+            </li>
+            <li>
+              <Link
+                to="/cadastro"
+                onClick={() => setMobileMenuOpen(false)}
+                className="border-gray-400 dark:border-gray-600 dark:bg-gray-800 border flex flex-1 items-center gap-3 text-texto-primary dark:text-texto-secondary text-lg font-medium bg-gray-200 rounded-lg text-center p-1"
+              >
+                <p className="w-full">
+                  Cadastre-se
+                </p>
+              </Link>
             </li>
           </ul>
         </nav>
