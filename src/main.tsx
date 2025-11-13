@@ -12,6 +12,8 @@ import Dicas from "./routes/Dicas";
 import Sobre from "./routes/Sobre";
 import Dashboard from "./routes/Dashboard";
 import Cadastro from "./routes/Cadastro";
+import { ApiProvider } from "./context/Api/ApiProvider";
+import { UserProvider } from "./context/User/UserProvider";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +21,7 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Home/> },
+      { index: true, element: <Home /> },
       { path: "contato", element: <Contato /> },
       { path: "faq", element: <Faq /> },
       { path: "integrantes", element: <Integrantes /> },
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ApiProvider>
+      <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
+    </ApiProvider>
   </StrictMode>
 );

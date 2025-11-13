@@ -4,6 +4,9 @@ import CardWrapper from "./CardWrapper";
 import LabelWrapper from "./LabelWrapper";
 import ButtonWrapper from "./ButtonWrapper";
 import { LogIn, UserPlus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/User/useUser";
+import { useApi } from "../context/Api/useApi";
 
 type LoginForm = {
   email: string;
@@ -22,13 +25,47 @@ const LoginCard = () => {
     defaultValues: { email: "", senha: "" },
   });
 
+  const navigate = useNavigate();
+  const { setUserEmail, setUserSenha } = useUser();
+  const { apiUrl } = useApi();
+
   const onSubmit = async (data: LoginForm) => {
-    // Aqui você pode chamar a API de login
+    const { email, senha } = data;
     console.log("Login enviado:", data);
     setSuccess("Autenticando...");
-    await new Promise((r) => setTimeout(r, 800));
-    setSuccess(null);
-    reset();
+
+    try {
+      // Faz chamada real à API fornecida por ApiProvider
+      const url = `${apiUrl}auralis_usuarios?email=${encodeURIComponent(
+        email
+      )}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+      const users = await res.json();
+
+      if (Array.isArray(users) && users.length > 0) {
+        const user = users[0];
+        // Verifica senha (no json-server a senha está em claro no db.json)
+        if (user.senha === senha) {
+          setUserEmail(email);
+          setUserSenha(senha);
+          setSuccess("Login realizado com sucesso!");
+          await new Promise((r) => setTimeout(r, 300));
+          navigate("/dashboard");
+        } else {
+          setSuccess("Senha incorreta");
+        }
+      } else {
+        setSuccess("Usuário não encontrado");
+      }
+    } catch (error) {
+      console.error(error);
+      setSuccess("Erro de autenticação");
+    } finally {
+      reset();
+      // limpa a mensagem após 1.5s
+      setTimeout(() => setSuccess(null), 1500);
+    }
   };
 
   return (
@@ -37,8 +74,12 @@ const LoginCard = () => {
         <LogIn className="w-8 h-8 text-white" />
       </div>
       <div className="text-center my-6 flex flex-col gap-4">
-        <h1 className="text-4xl font-bold text-texto-primary dark:text-white">Fazer Login</h1>
-        <p className="text-lg text-gray-500 dark:text-gray-300">Entre na sua conta para continuar</p>
+        <h1 className="text-4xl font-bold text-texto-primary dark:text-white">
+          Fazer Login
+        </h1>
+        <p className="text-lg text-gray-500 dark:text-gray-300">
+          Entre na sua conta para continuar
+        </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full mx-2">
         <div className="flex flex-col">
@@ -93,7 +134,9 @@ const LoginCard = () => {
             Entrar
           </button>
         </div>
-          {success && <p className="text-sm text-center text-green-600 ml-4">{success}</p>}
+        {success && (
+          <p className="text-sm text-center text-green-600 ml-4">{success}</p>
+        )}
       </form>
 
       <div className="w-full flex items-center mt-4">

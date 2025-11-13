@@ -1,0 +1,107 @@
+{
+  "auralis_usuarios": [
+    {
+      "id_usuario": "1",
+      "nome_usuario": "Felipe",
+      "email": "felipe@exemplo.com",
+      "senha": "123456",
+      "genero": "M",
+      "data_nascimento": "2006-07-20",
+      "data_cadastro": "2025-11-01"
+    }
+  ],
+  "auralis_registros": [
+    {
+      "id_registro": 1,
+      "id_usuario": 1,
+      "hidratacao_ml": 2100,
+      "tempo_sol_min": 35,
+      "nivel_estresse": 4,
+      "sono_horas": 7.8,
+      "tempo_tela_horas": 4.2,
+      "trabalho_horas": 8,
+      "atividade_fisica_min": 40,
+      "score": 86,
+      "data_registro": "2025-11-03"
+    },
+    {
+      "id_registro": 2,
+      "id_usuario": 1,
+      "hidratacao_ml": 1800,
+      "tempo_sol_min": 20,
+      "nivel_estresse": 6,
+      "sono_horas": 6.9,
+      "tempo_tela_horas": 5.5,
+      "trabalho_horas": 9,
+      "atividade_fisica_min": 25,
+      "score": 72,
+      "data_registro": "2025-11-04"
+    },
+    {
+      "id_registro": 3,
+      "id_usuario": 1,
+      "hidratacao_ml": 1600,
+      "tempo_sol_min": 15,
+      "nivel_estresse": 7,
+      "sono_horas": 6.2,
+      "tempo_tela_horas": 6.3,
+      "trabalho_horas": 9.5,
+      "atividade_fisica_min": 10,
+      "score": 61,
+      "data_registro": "2025-11-05"
+    },
+    {
+      "id_registro": 4,
+      "id_usuario": 1,
+      "hidratacao_ml": 2300,
+      "tempo_sol_min": 50,
+      "nivel_estresse": 3,
+      "sono_horas": 8.1,
+      "tempo_tela_horas": 3.8,
+      "trabalho_horas": 7.5,
+      "atividade_fisica_min": 45,
+      "score": 91,
+      "data_registro": "2025-11-06"
+    },
+    {
+      "id_registro": 5,
+      "id_usuario": 1,
+      "hidratacao_ml": 2000,
+      "tempo_sol_min": 30,
+      "nivel_estresse": 5,
+      "sono_horas": 7.0,
+      "tempo_tela_horas": 5.0,
+      "trabalho_horas": 8.5,
+      "atividade_fisica_min": 30,
+      "score": 78,
+      "data_registro": "2025-11-07"
+    },
+    {
+      "id_registro": 6,
+      "id_usuario": 1,
+      "hidratacao_ml": 1500,
+      "tempo_sol_min": 10,
+      "nivel_estresse": 8,
+      "sono_horas": 5.8,
+      "tempo_tela_horas": 7.0,
+      "trabalho_horas": 9.5,
+      "atividade_fisica_min": 5,
+      "score": 55,
+      "data_registro": "2025-11-08"
+    },
+    {
+      "id_registro": 7,
+      "id_usuario": 1,
+      "hidratacao_ml": 2200,
+      "tempo_sol_min": 40,
+      "nivel_estresse": 4,
+      "sono_horas": 8.0,
+      "tempo_tela_horas": 4.0,
+      "trabalho_horas": 7.5,
+      "atividade_fisica_min": 35,
+      "score": 88,
+      "data_registro": "2025-11-09"
+    }
+  ]
+}
+
