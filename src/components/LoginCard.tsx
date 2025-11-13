@@ -32,7 +32,7 @@ const LoginCard = () => {
   };
 
   return (
-    <CardWrapper className="flex-col w-[90%] md:w-[60%] lg:w-[40%] pb-6 mb-8">
+    <CardWrapper className="flex-col w-[95%] md:w-[60%] lg:w-[40%] pb-6 mb-8">
       <div className="bg-linear-to-r from-primary to-secondary rounded-full p-4 shadow-glow-blue">
         <LogIn className="w-8 h-8 text-white" />
       </div>

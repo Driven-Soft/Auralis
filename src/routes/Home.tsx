@@ -74,7 +74,7 @@ const Home = () => {
         <hr className="w-full md:w-[70%] self-center my-4 border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
       </section>
 
-      <section>
+      <section className="w-full">
         <LoginCard />
       </section>
 
@@ -95,7 +95,7 @@ const Home = () => {
       <hr className="w-full md:w-[70%] self-center my-4 border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
     </div>
 
-    <section className="w-[95%] mx-auto">
+    <section className="w-[95%] mx-auto mb-8 md:mb-0">
         <div className="grid md:hidden grid-cols-1 gap-4">
           <HomeCard
             icon={<ActivityIcon />}
@@ -115,11 +115,6 @@ const Home = () => {
             title="Dicas personalizadas"
             texto="Receba orientações de saúde adaptadas ao seu perfil"
           />
-        </div>
-      </section>
-
-      <section className="w-[95%] mx-auto mb-8 md:mb-0">
-        <div className="grid md:hidden grid-cols-1 gap-4 mt-4">
           <HomeCard
             icon={<TrendingUpIcon />}
             iconClassName="text-purple-500"
