@@ -3,65 +3,55 @@ import Wrapper from "../components/Wrapper";
 import { useApi } from "../context/Api/useApi";
 import { useUser } from "../context/User/useUser";
 import type { dashboardType } from "../types/dashboardType";
-
-type Usuario = {
-  id: number;
-  nome_usuario: string;
-  email: string;
-  senha?: string;
-  genero?: string;
-  data_nascimento?: string;
-  data_cadastro?: string;
-};
+import type { usuarioType } from "../types/usuarioType";
 
 const Dashboard = () => {
   const { apiUrl } = useApi();
   const { userEmail } = useUser();
-  const [user, setUser] = useState<Usuario | null>(null);
+  const [user, setUser] = useState<usuarioType | null>(null);
   const [registros, setRegistros] = useState<dashboardType[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchUserAndRegistros = async () => {
+    async function loadDashboard() {
       setLoading(true);
       try {
-        // Buscar usuário: primeiro por email (se disponível), senão fallback para id=1
-        let fetchedUser: Usuario | null = null;
+        let fetchedUser: usuarioType | null = null;
 
         if (userEmail) {
           const resUser = await fetch(
-            `${apiUrl}auralis_usuarios?email=${encodeURIComponent(userEmail)}`
+            `${apiUrl}/auralis_usuarios?email=${userEmail}`
           );
           if (!resUser.ok)
             throw new Error(`Erro ao buscar usuário (${resUser.status})`);
-          const users: Usuario[] = await resUser.json();
+          const users: usuarioType[] = await resUser.json();
           fetchedUser = users[0] ?? null;
         } else {
-          const resUser = await fetch(`${apiUrl}auralis_usuarios/1`);
+          const resUser = await fetch(`${apiUrl}/auralis_usuarios/1`);
           if (resUser.ok) fetchedUser = await resUser.json();
         }
 
         if (!fetchedUser) throw new Error("Usuário não encontrado");
         setUser(fetchedUser);
 
-        // Buscar somente registros do usuário
         const resRegs = await fetch(
-          `${apiUrl}auralis_registros?id_usuario=${fetchedUser.id}`
+          `${apiUrl}/auralis_registros?id_usuario=${fetchedUser.id}`
         );
         if (!resRegs.ok)
           throw new Error(`Erro ao buscar registros (${resRegs.status})`);
         const regs: dashboardType[] = await resRegs.json();
         setRegistros(regs);
       } catch (err) {
+        console.error("Erro ao carregar dados:", err);
         if (err instanceof Error) setError(err.message);
         else setError(String(err) || "Erro ao buscar dados");
       } finally {
         setLoading(false);
       }
-    };
+    }
 
-    fetchUserAndRegistros();
+    loadDashboard();
   }, [apiUrl, userEmail]);
 
   return (

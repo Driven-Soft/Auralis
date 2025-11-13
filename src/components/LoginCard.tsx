@@ -15,6 +15,7 @@ type LoginForm = {
 
 const LoginCard = () => {
   const [success, setSuccess] = useState<string | null>(null);
+  // const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -34,36 +35,38 @@ const LoginCard = () => {
     console.log("Login enviado:", data);
     setSuccess("Autenticando...");
 
-    try {
-      // Faz chamada real à API fornecida por ApiProvider
-      const url = `${apiUrl}auralis_usuarios?email=${encodeURIComponent(
-        email
-      )}`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-      const users = await res.json();
+    async function authenticate() {
+      // setLoading(true);
+      try {
+        const url = `${apiUrl}/auralis_usuarios?email=${email}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+        const users = await res.json();
 
-      if (Array.isArray(users) && users.length > 0) {
-        const user = users[0];
-        // Verifica senha (no json-server a senha está em claro no db.json)
-        if (user.senha === senha) {
-          setUserEmail(email);
-          setUserSenha(senha);
-          setSuccess("Login realizado com sucesso!");
-          await new Promise((r) => setTimeout(r, 300));
-          navigate("/dashboard");
+        if (Array.isArray(users) && users.length > 0) {
+          const user = users[0];
+          if (user.senha === senha) {
+            setUserEmail(email);
+            setUserSenha(senha);
+            setSuccess("Login realizado com sucesso!");
+            await new Promise((r) => setTimeout(r, 300));
+            navigate("/dashboard");
+          } else {
+            setSuccess("Senha incorreta");
+          }
         } else {
-          setSuccess("Senha incorreta");
+          setSuccess("Usuário não encontrado");
         }
-      } else {
-        setSuccess("Usuário não encontrado");
+      } catch (error) {
+        console.error("Erro ao autenticar:", error);
+        setSuccess("Erro de autenticação");
+      } finally {
+        // setLoading(false);
+        reset();
       }
-    } catch (error) {
-      console.error(error);
-      setSuccess("Erro de autenticação");
-    } finally {
-      reset();
     }
+
+    await authenticate();
   };
 
   return (
