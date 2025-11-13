@@ -1,7 +1,7 @@
 {
   "auralis_usuarios": [
     {
-      "id_usuario": "1",
+      "id": 1,
       "nome_usuario": "Felipe",
       "email": "felipe@exemplo.com",
       "senha": "123456",
@@ -12,7 +12,7 @@
   ],
   "auralis_registros": [
     {
-      "id_registro": 1,
+      "id": 1,
       "id_usuario": 1,
       "hidratacao_ml": 2100,
       "tempo_sol_min": 35,
@@ -25,7 +25,7 @@
       "data_registro": "2025-11-03"
     },
     {
-      "id_registro": 2,
+      "id": 2,
       "id_usuario": 1,
       "hidratacao_ml": 1800,
       "tempo_sol_min": 20,
@@ -38,7 +38,7 @@
       "data_registro": "2025-11-04"
     },
     {
-      "id_registro": 3,
+      "id": 3,
       "id_usuario": 1,
       "hidratacao_ml": 1600,
       "tempo_sol_min": 15,
@@ -51,7 +51,7 @@
       "data_registro": "2025-11-05"
     },
     {
-      "id_registro": 4,
+      "id": 4,
       "id_usuario": 1,
       "hidratacao_ml": 2300,
       "tempo_sol_min": 50,
@@ -64,7 +64,7 @@
       "data_registro": "2025-11-06"
     },
     {
-      "id_registro": 5,
+      "id": 5,
       "id_usuario": 1,
       "hidratacao_ml": 2000,
       "tempo_sol_min": 30,
@@ -77,7 +77,7 @@
       "data_registro": "2025-11-07"
     },
     {
-      "id_registro": 6,
+      "id": 6,
       "id_usuario": 1,
       "hidratacao_ml": 1500,
       "tempo_sol_min": 10,
@@ -90,7 +90,7 @@
       "data_registro": "2025-11-08"
     },
     {
-      "id_registro": 7,
+      "id": 7,
       "id_usuario": 1,
       "hidratacao_ml": 2200,
       "tempo_sol_min": 40,
@@ -104,4 +104,3 @@
     }
   ]
 }
-

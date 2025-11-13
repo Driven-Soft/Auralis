@@ -68,6 +68,9 @@ const IntegranteCard = ({ integrante }: IntegranteCardProps) => {
             </ButtonWrapper>
           </div>
         </div>
+        <ButtonWrapper to={`/integrantes/${integrante.rm}`}>
+          <p className="text-sm">Ver mais detalhes</p>
+        </ButtonWrapper>
       </div>
     </div>
   );

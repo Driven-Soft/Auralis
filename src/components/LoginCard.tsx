@@ -63,8 +63,6 @@ const LoginCard = () => {
       setSuccess("Erro de autenticação");
     } finally {
       reset();
-      // limpa a mensagem após 1.5s
-      setTimeout(() => setSuccess(null), 1500);
     }
   };
 

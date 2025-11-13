@@ -14,6 +14,7 @@ import Dashboard from "./routes/Dashboard";
 import Cadastro from "./routes/Cadastro";
 import { ApiProvider } from "./context/Api/ApiProvider";
 import { UserProvider } from "./context/User/UserProvider";
+import IntegranteDetalhe from "./routes/IntegranteDetalhe";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: "sobre", element: <Sobre /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "cadastro", element: <Cadastro /> },
+      { path: "integrantes/:rm", element: <IntegranteDetalhe /> },
     ],
   },
 ]);
