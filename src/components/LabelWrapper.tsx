@@ -4,7 +4,7 @@ interface LabelWrapperProps {
 
 const LabelWrapper = ({ children }: LabelWrapperProps) => {
   return (
-    <label className="text-sm font-medium mb-1 text-texto-primary dark:text-texto-secondary">{children}</label>
+    <label className="text-sm font-medium my-2 text-texto-primary dark:text-texto-secondary">{children}</label>
   )
 }
 

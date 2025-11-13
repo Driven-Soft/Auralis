@@ -30,6 +30,7 @@ const ButtonWrapper = ({ onClick, children, className = "", to, href }: WrapperP
       <button
         onClick={handleClick}
         className={`
+          flex items-center justify-center
           cursor-pointer w-full px-4
           border border-gray-300 dark:border-gray-600
           bg-[#f7fafc] dark:bg-gray-800

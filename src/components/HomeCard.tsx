@@ -25,9 +25,9 @@ const UserCard = ({ title, texto, icon, iconClassName }: UserCardProps) => {
           </div>
         )}
       </div>
-      <div className="text-center items-center">
-        <p className="text-texto-primary text-lg dark:text-texto-secondary">{title}</p>
-        <p className="text-gray-500 dark:text-gray-400">{texto}</p>
+      <div className="text-center items-center flex flex-col gap-1">
+        <p className="text-texto-primary text-sm md:text-lg font-bold md:font-normal dark:text-texto-secondary">{title}</p>
+        <p className="text-gray-500 dark:text-gray-400 text-sm md:text-md">{texto}</p>
       </div>
     </CardWrapper>
   );

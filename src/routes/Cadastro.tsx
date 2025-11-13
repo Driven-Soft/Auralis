@@ -67,7 +67,7 @@ const Cadastro = () => {
             )}
           </div>
 
-          <div>
+          <div className="flex flex-col">
             <LabelWrapper>Email</LabelWrapper>
             <input
               {...register("email", {
@@ -87,7 +87,7 @@ const Cadastro = () => {
             )}
           </div>
 
-          <div>
+          <div className="flex flex-col">
             <LabelWrapper>Data de nascimento</LabelWrapper>
             <input
               type="date"
@@ -108,7 +108,7 @@ const Cadastro = () => {
             )}
           </div>
 
-          <div>
+          <div className="flex flex-col">
             <LabelWrapper>Gênero</LabelWrapper>
             <select
               {...register("genero", { required: "Selecione um gênero" })}
@@ -131,7 +131,7 @@ const Cadastro = () => {
             )}
           </div>
 
-          <div>
+          <div className="flex flex-col">
             <LabelWrapper>Senha</LabelWrapper>
             <input
               type="password"
@@ -152,11 +152,11 @@ const Cadastro = () => {
             )}
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-center">
             <button
               type="submit"
               disabled={isSubmitting}
-              className="btn btn-primary cursor-pointer w-full px-4
+              className="btn btn-primary cursor-pointer w-[95%] mt-2 px-4
           border border-gray-300 dark:border-blue-800
           bg-linear-to-r from-primary to-secondary
           text-white font-semibold py-3 rounded-xl text-center
@@ -164,7 +164,7 @@ const Cadastro = () => {
           hover:scale-102
           shadow-md"
             >
-              {isSubmitting ? "Enviando..." : "Criar perfil"}
+              Criar perfil
             </button>
             {success && <p className="text-sm text-green-600">{success}</p>}
           </div>
