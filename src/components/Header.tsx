@@ -17,7 +17,7 @@ import { useUser } from "../context/User/useUser";
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const { userEmail, setUserEmail, setUserSenha } = useUser();
+  const { userEmail, setUserEmail, setUserSenha, setUser } = useUser();
 
   return (
     <>
@@ -48,10 +48,11 @@ const Header = () => {
               {userEmail ? (
                 <button
                   onClick={() => {
-                    setUserEmail("");
-                    setUserSenha("");
-                    navigate("/");
-                  }}
+                      setUserEmail("");
+                      setUserSenha("");
+                      setUser(null);
+                      navigate("/");
+                    }}
                   className="bg-linear-to-r from-primary to-secondary rounded-xl hover:scale-110 transition-all duration-200 ease-in-out shadow-glow-blue py-2 px-4 text-center font-bold text-white"
                 >
                   Sair
@@ -176,6 +177,7 @@ const Header = () => {
                       setMobileMenuOpen(false);
                       setUserEmail("");
                       setUserSenha("");
+                      setUser(null);
                       navigate("/");
                     }}
                   >

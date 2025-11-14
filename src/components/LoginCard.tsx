@@ -14,8 +14,8 @@ type LoginForm = {
 };
 
 const LoginCard = () => {
-  const [success, setSuccess] = useState<string | null>(null);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
 
   const {
     register,
@@ -27,46 +27,39 @@ const LoginCard = () => {
   });
 
   const navigate = useNavigate();
-  const { setUserEmail, setUserSenha } = useUser();
-  const { apiUrl } = useApi();
+  const { setUserEmail, setUserSenha, setUser } = useUser();
+  const { login } = useApi();
 
   const onSubmit = async (data: LoginForm) => {
     const { email, senha } = data;
     console.log("Login enviado:", data);
-    setSuccess("Autenticando...");
 
-    async function authenticate() {
-      // setLoading(true);
-      try {
-        const url = `${apiUrl}/auralis_usuarios?email=${email}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP error ${res.status}`);
-        const users = await res.json();
+    try {
+      setLoading(true);
+      if (!login) throw new Error("login não disponível no contexto de API");
+      const result = await login(email, senha);
 
-        if (Array.isArray(users) && users.length > 0) {
-          const user = users[0];
-          if (user.senha === senha) {
-            setUserEmail(email);
-            setUserSenha(senha);
-            setSuccess("Login realizado com sucesso!");
-            await new Promise((r) => setTimeout(r, 300));
-            navigate("/dashboard");
-          } else {
-            setSuccess("Senha incorreta");
-          }
-        } else {
-          setSuccess("Usuário não encontrado");
-        }
-      } catch (error) {
-        console.error("Erro ao autenticar:", error);
-        setSuccess("Erro de autenticação");
-      } finally {
-        // setLoading(false);
-        reset();
+      if (result.success) {
+        console.log(`Login feito com sucesso! email:${email} senha:${senha}`);
+        setUserEmail(email);
+        setUserSenha(senha);
+
+        if (result.user) setUser(result.user);
+        setInvalidCredentials(false);
+        await new Promise((r) => setTimeout(r, 300));
+        navigate("/dashboard");
+
+      } else {
+        console.log("Falha no login:", result.message);
+        setInvalidCredentials(true);
       }
-    }
+    } catch (error) {
+      console.error("Erro ao autenticar:", error);
 
-    await authenticate();
+    } finally {
+      setLoading(false);
+      reset();
+    }
   };
 
   return (
@@ -82,6 +75,7 @@ const LoginCard = () => {
           Entre na sua conta para continuar
         </p>
       </div>
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full mx-2">
         <div className="flex flex-col">
           <LabelWrapper>Email</LabelWrapper>
@@ -92,6 +86,7 @@ const LoginCard = () => {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 message: "Formato de email inválido",
               },
+              onChange: () => setInvalidCredentials(false),
             })}
             className="text-gray-800 px-3 dark:text-white w-full input input-bordered bg-blue-50 p-2 rounded-lg border placeholder:font-light dark:placeholder:text-gray-400 border-gray-200 dark:bg-gray-800 dark:border-gray-600"
             placeholder="seuemail@exemplo.com"
@@ -111,6 +106,7 @@ const LoginCard = () => {
                 value: 6,
                 message: "Senha deve ter ao menos 6 caracteres",
               },
+              onChange: () => setInvalidCredentials(false),
             })}
             className="text-gray-800 px-3 dark:text-white w-full input input-bordered bg-blue-50 p-2 rounded-lg border placeholder:font-light dark:placeholder:text-gray-400 border-gray-200 dark:bg-gray-800 dark:border-gray-600"
             placeholder="Mínimo 6 caracteres"
@@ -135,9 +131,20 @@ const LoginCard = () => {
             Entrar
           </button>
         </div>
-        {success && (
-          <p className="text-sm text-center text-green-600 ml-4">{success}</p>
+        {invalidCredentials && (
+          <p className="text-xs text-red-500 mt-2 text-center">
+            Credenciais inválidas! Tente novamente.
+          </p>
         )}
+
+        {loading && (
+        <div className="flex items-center justify-center gap-2 mt-4">
+          <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin border-gray-400 dark:border-gray-300" />
+          <p className="text-lg font-bold text-gray-600 dark:text-gray-300">
+            Carregando...
+          </p>
+        </div>
+      )}
       </form>
 
       <div className="w-full flex items-center mt-4">

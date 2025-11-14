@@ -1,13 +1,13 @@
 export interface dashboardType {
   id: number;
   id_usuario: number;
-  hidratacao_ml: number;
-  tempo_sol_min: number;
+  hidratacao: number;
+  tempo_sol: number;
   nivel_estresse: number;
-  sono_horas: number;
-  tempo_tela_horas: number;
+  sono: number;
+  tempo_tela: number;
   trabalho_horas: number;
-  atividade_fisica_min: number;
+  atividade_fisica: number;
   score: number;
-  data_registro: string;
+  dataRegistro: string;
 };

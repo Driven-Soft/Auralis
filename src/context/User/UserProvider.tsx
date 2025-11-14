@@ -1,44 +1,35 @@
 import { useEffect, useState } from "react";
 import { UserContext } from "./context";
-
-const LOGIN_KEY = "auralis_user";
+import type { ApiUser } from "../Api/type";
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [userEmail, setUserEmail] = useState(() => {
+  const initialUser = (() => {
     try {
-      const raw = localStorage.getItem(LOGIN_KEY);
-      if (!raw) return "";
-      const parsed = JSON.parse(raw);
-      return parsed?.email ?? "";
+      const raw = localStorage.getItem("auralis_user");
+      return raw ? (JSON.parse(raw) as ApiUser) : null;
     } catch {
-      return "";
+      return null;
     }
-  });
+  })();
 
-  const [userSenha, setUserSenha] = useState(() => {
-    try {
-      const raw = localStorage.getItem(LOGIN_KEY);
-      if (!raw) return "";
-      const parsed = JSON.parse(raw);
-      return parsed?.senha ?? "";
-    } catch {
-      return "";
-    }
-  });
+  const [user, setUser] = useState<ApiUser | null>(initialUser);
+  const [userEmail, setUserEmail] = useState<string>(initialUser?.email ?? "");
+  const [userSenha, setUserSenha] = useState<string>("");
 
   useEffect(() => {
     try {
-      const payload = JSON.stringify({ email: userEmail, senha: userSenha });
-      localStorage.setItem(LOGIN_KEY, payload);
-    } catch {
-      // Ignorar erros de armazenamento
+      if (user) {
+        localStorage.setItem("auralis_user", JSON.stringify(user));
+      } else {
+        localStorage.removeItem("auralis_user");
+      }
+    } catch (error) {
+      console.log("Erro ao salvar usuário no localStorage: ", error);
     }
-  }, [userEmail, userSenha]);
+  }, [user]);
 
   return (
-    <UserContext.Provider
-      value={{ userEmail, userSenha, setUserEmail, setUserSenha }}
-    >
+    <UserContext.Provider value={{ userEmail, userSenha, user, setUser, setUserEmail, setUserSenha }}>
       {children}
     </UserContext.Provider>
   );

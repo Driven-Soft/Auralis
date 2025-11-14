@@ -3,99 +3,92 @@ import Wrapper from "../components/Wrapper";
 import { useApi } from "../context/Api/useApi";
 import { useUser } from "../context/User/useUser";
 import type { dashboardType } from "../types/dashboardType";
-import type { usuarioType } from "../types/usuarioType";
+import type { ApiUser } from "../context/Api/type";
 
 const Dashboard = () => {
   const { apiUrl } = useApi();
-  const { userEmail } = useUser();
-  const [user, setUser] = useState<usuarioType | null>(null);
+  const { user: contextUser } = useUser();
   const [registros, setRegistros] = useState<dashboardType[] | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function loadDashboard() {
+    async function loadRegistros() {
       setLoading(true);
       try {
-        let fetchedUser: usuarioType | null = null;
+        const base = apiUrl;
+        const userId = (contextUser as ApiUser | undefined)?.id_usuario ?? 1;
 
-        if (userEmail) {
-          const resUser = await fetch(
-            `${apiUrl}/auralis_usuarios?email=${userEmail}`
-          );
-          if (!resUser.ok)
-            throw new Error(`Erro ao buscar usuário (${resUser.status})`);
-          const users: usuarioType[] = await resUser.json();
-          fetchedUser = users[0] ?? null;
-        } else {
-          const resUser = await fetch(`${apiUrl}/auralis_usuarios/1`);
-          if (resUser.ok) fetchedUser = await resUser.json();
-        }
+        const url = `${base}/registros/usuario/${userId}/semana`;
+        const res = await fetch(url);
 
-        if (!fetchedUser) throw new Error("Usuário não encontrado");
-        setUser(fetchedUser);
-
-        const resRegs = await fetch(
-          `${apiUrl}/auralis_registros?id_usuario=${fetchedUser.id}`
-        );
-        if (!resRegs.ok)
-          throw new Error(`Erro ao buscar registros (${resRegs.status})`);
-        const regs: dashboardType[] = await resRegs.json();
-        setRegistros(regs);
+        if (!res.ok)
+          throw new Error(`Erro ao buscar registros (${res.status})`);
+        const data: dashboardType[] = await res.json();
+        setRegistros(data);
+        console.log("Registros carregados:", data);
+        console.log(data.map((registro) => registro.dataRegistro));
       } catch (err) {
-        console.error("Erro ao carregar dados:", err);
-        if (err instanceof Error) setError(err.message);
-        else setError(String(err) || "Erro ao buscar dados");
+        console.error("Erro ao carregar registros:", err);
       } finally {
         setLoading(false);
       }
     }
 
-    loadDashboard();
-  }, [apiUrl, userEmail]);
+    loadRegistros();
+  }, [apiUrl, contextUser]);
 
   return (
     <Wrapper>
-      <section>
-        <h1>Olá {user ? user.nome_usuario : ""}</h1>
-
-        {user && (
-          <div style={{ marginBottom: 12 }}>
-            <p>
-              <strong>Nome:</strong> {user.nome_usuario}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            {user.genero && (
-              <p>
-                <strong>Gênero:</strong> {user.genero}
-              </p>
+      {loading && <p>Carregando dados do dashboard...</p>}
+      {contextUser ? (
+        <section>
+          <h1>Olá {contextUser.nome}</h1>
+          <ul>
+            <li>
+              <strong>ID:</strong> {contextUser.id_usuario}
+            </li>
+            <li>
+              <strong>Nome:</strong> {contextUser.nome}
+            </li>
+            <li>
+              <strong>Email:</strong> {contextUser.email}
+            </li>
+            {contextUser.genero && (
+              <li>
+                <strong>Gênero:</strong> {contextUser.genero}
+              </li>
             )}
-            {user.data_nascimento && (
-              <p>
-                <strong>Data de Nascimento:</strong> {user.data_nascimento}
-              </p>
+            {contextUser.data_nascimento && (
+              <li>
+                <strong>Data Nascimento:</strong> {contextUser.data_nascimento}
+              </li>
             )}
-          </div>
-        )}
+          </ul>
 
-        {loading && <p>Carregando registros...</p>}
-        {error && <p style={{ color: "red" }}>Erro: {error}</p>}
-
-        {registros && (
-          <div>
-            <p>{registros.length} registro(s) encontrados.</p>
-            <ul>
-              {registros.map((r) => (
-                <li key={r.id}>
-                  <strong>{r.data_registro}</strong> — Score: {r.score}
-                </li>
+          <section>
+            <h2>Registros da Semana</h2>
+            {registros &&
+              registros.map((registro) => (
+                <div
+                  className="flex flex-col md:flex-row md:items-center md:gap-4 gap-2"
+                  key={registro.id}
+                >
+                  <p>Hidratação: {registro.hidratacao}</p>
+                  <p>Tempo ao sol: {registro.tempo_sol}</p>
+                  <p>Nível de estresse: {registro.nivel_estresse}</p>
+                  <p>Horas de sono: {registro.sono}</p>
+                  <p>Tempo de tela: {registro.tempo_tela}</p>
+                  <p>Horas de trabalho: {registro.trabalho_horas}</p>
+                  <p>Atividade física: {registro.atividade_fisica}</p>
+                  <p>Score: {registro.score}</p>
+                  <p>Dia: {registro.dataRegistro.replace(/-/g, "/")}</p>
+                </div>
               ))}
-            </ul>
-          </div>
-        )}
-      </section>
+          </section>
+        </section>
+      ) : (
+        <p>Usuário não autenticado.</p>
+      )}
     </Wrapper>
   );
 };
