@@ -4,6 +4,9 @@ import { useApi } from "../context/Api/useApi";
 import { useUser } from "../context/User/useUser";
 import type { dashboardType } from "../types/dashboardType";
 import type { ApiUser } from "../context/User/type";
+import { HeartHandshake } from "lucide-react";
+import CardWrapper from "../components/CardWrapper";
+import MarcadorPonteiro from "../components/MostradorPonteiro";
 
 const Dashboard = () => {
   const { apiUrl } = useApi();
@@ -37,55 +40,50 @@ const Dashboard = () => {
     loadRegistros();
   }, [apiUrl, contextUser]);
 
+  if (loading) {
+    return (
+      <Wrapper>
+        <div className="flex flex-row items-center justify-center gap-4 mt-4">
+          <p className="text-xl font-bold text-gray-600 dark:text-gray-300">
+            Carregando seus dados...
+          </p>
+          <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin border-gray-400 dark:border-gray-00" />
+        </div>
+      </Wrapper>
+    );
+  }
+
   return (
     <Wrapper>
-      {loading && <p className="dark:text-white">Carregando dados do dashboard...</p>}
       {contextUser ? (
-        <section className="dark:text-white">
-          <h1>Olá {contextUser.nome}</h1>
-          <ul>
-            <li>
-              <strong>ID:</strong> {contextUser.id_usuario}
-            </li>
-            <li>
-              <strong>Nome:</strong> {contextUser.nome}
-            </li>
-            <li>
-              <strong>Email:</strong> {contextUser.email}
-            </li>
-            {contextUser.genero && (
-              <li>
-                <strong>Gênero:</strong> {contextUser.genero}
-              </li>
-            )}
-            {contextUser.data_nascimento && (
-              <li>
-                <strong>Data Nascimento:</strong> {contextUser.data_nascimento}
-              </li>
-            )}
-          </ul>
-
-          <section>
-            <h2>Registros da Semana</h2>
-            {registros &&
-              registros.map((registro, idx) => (
-                <div
-                  className="flex flex-col md:flex-row md:items-center md:gap-4 gap-2"
-                  key={registro.id ?? `${registro.dataRegistro}-${idx}`}
-                >
-                  <p>Hidratação: {registro.hidratacao}</p>
-                  <p>Tempo ao sol: {registro.tempo_sol}</p>
-                  <p>Nível de estresse: {registro.nivel_estresse}</p>
-                  <p>Horas de sono: {registro.sono}</p>
-                  <p>Tempo de tela: {registro.tempo_tela}</p>
-                  <p>Horas de trabalho: {registro.trabalho_horas}</p>
-                  <p>Atividade física: {registro.atividade_fisica}</p>
-                  <p>Score: {registro.score}</p>
-                  <p>Dia: {registro.dataRegistro.replace(/-/g, "/")}</p>
-                </div>
-              ))}
+        <>
+          <section className="py-4 px-6">
+            <div className="flex flex-row text-center items-center gap-2 text-4xl font-bold text-gray-800 dark:text-white">
+              <h1>Olá, {contextUser.nome}!</h1>
+              <HeartHandshake />
+            </div>
+            <p className="text-gray-600 dark:text-gray-400 text-lg">
+              Seu último score de bem-estar está em
+              <span className="text-secondary dark:text-primary text-xl">
+                {" "}
+                {registros ? registros[0]?.score : "carregando..."}
+              </span>{" "}
+              pontos!
+            </p>
           </section>
-        </section>
+          <section className="flex flex-col md:flex-row gap-4 mx-4 mt-6">
+            <CardWrapper className="flex-col items-center flex-1">
+              <MarcadorPonteiro
+                value={registros ? registros[0]?.score : 0}
+                size={400}
+                title="Score de bem-estar"
+              />
+            </CardWrapper>
+            <CardWrapper className="flex-1">
+              <p></p>
+            </CardWrapper>
+          </section>
+        </>
       ) : (
         <p>Usuário não autenticado.</p>
       )}

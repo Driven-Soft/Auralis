@@ -136,7 +136,7 @@ const LoginCard = () => {
 
         {loading && (
           <div className="flex items-center justify-center gap-2 mt-4">
-            <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin border-gray-400 dark:border-gray-300" />
+            <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin border-gray-400 dark:border-gray-00" />
             <p className="text-lg font-bold text-gray-600 dark:text-gray-300">
               Carregando...
             </p>
