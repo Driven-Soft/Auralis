@@ -6,7 +6,6 @@ import ButtonWrapper from "./ButtonWrapper";
 import { LogIn, UserPlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/User/useUser";
-import { useApi } from "../context/Api/useApi";
 
 type LoginForm = {
   email: string;
@@ -27,8 +26,7 @@ const LoginCard = () => {
   });
 
   const navigate = useNavigate();
-  const { setUserEmail, setUserSenha, setUser } = useUser();
-  const { login } = useApi();
+  const { setUserEmail, setUserSenha, setUser, login } = useUser();
 
   const onSubmit = async (data: LoginForm) => {
     const { email, senha } = data;
@@ -36,7 +34,8 @@ const LoginCard = () => {
 
     try {
       setLoading(true);
-      if (!login) throw new Error("login não disponível no contexto de API");
+      if (!login)
+        throw new Error("login não disponível no contexto de usuário");
       const result = await login(email, senha);
 
       if (result.success) {
@@ -48,14 +47,12 @@ const LoginCard = () => {
         setInvalidCredentials(false);
         await new Promise((r) => setTimeout(r, 300));
         navigate("/dashboard");
-
       } else {
         console.log("Falha no login:", result.message);
         setInvalidCredentials(true);
       }
     } catch (error) {
       console.error("Erro ao autenticar:", error);
-
     } finally {
       setLoading(false);
       reset();
@@ -138,13 +135,13 @@ const LoginCard = () => {
         )}
 
         {loading && (
-        <div className="flex items-center justify-center gap-2 mt-4">
-          <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin border-gray-400 dark:border-gray-300" />
-          <p className="text-lg font-bold text-gray-600 dark:text-gray-300">
-            Carregando...
-          </p>
-        </div>
-      )}
+          <div className="flex items-center justify-center gap-2 mt-4">
+            <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin border-gray-400 dark:border-gray-300" />
+            <p className="text-lg font-bold text-gray-600 dark:text-gray-300">
+              Carregando...
+            </p>
+          </div>
+        )}
       </form>
 
       <div className="w-full flex items-center mt-4">

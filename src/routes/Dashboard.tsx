@@ -3,7 +3,7 @@ import Wrapper from "../components/Wrapper";
 import { useApi } from "../context/Api/useApi";
 import { useUser } from "../context/User/useUser";
 import type { dashboardType } from "../types/dashboardType";
-import type { ApiUser } from "../context/Api/type";
+import type { ApiUser } from "../context/User/type";
 
 const Dashboard = () => {
   const { apiUrl } = useApi();
@@ -39,9 +39,9 @@ const Dashboard = () => {
 
   return (
     <Wrapper>
-      {loading && <p>Carregando dados do dashboard...</p>}
+      {loading && <p className="dark:text-white">Carregando dados do dashboard...</p>}
       {contextUser ? (
-        <section>
+        <section className="dark:text-white">
           <h1>Olá {contextUser.nome}</h1>
           <ul>
             <li>
@@ -68,10 +68,10 @@ const Dashboard = () => {
           <section>
             <h2>Registros da Semana</h2>
             {registros &&
-              registros.map((registro) => (
+              registros.map((registro, idx) => (
                 <div
                   className="flex flex-col md:flex-row md:items-center md:gap-4 gap-2"
-                  key={registro.id}
+                  key={registro.id ?? `${registro.dataRegistro}-${idx}`}
                 >
                   <p>Hidratação: {registro.hidratacao}</p>
                   <p>Tempo ao sol: {registro.tempo_sol}</p>
