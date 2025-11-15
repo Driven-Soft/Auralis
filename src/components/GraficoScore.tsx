@@ -5,7 +5,7 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from "recharts";
 
 interface RegistroAPI {
@@ -38,11 +38,11 @@ export default function GraficoScore({ registros }: GraficoScoreProps) {
   });
 
   return (
-    <div className="w-full h-64 mr-5"> 
+    <div className="w-full h-64 mr-6">
       <ResponsiveContainer width="100%" height={280}>
         <LineChart data={dados}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="dia" />
+          <XAxis dataKey="dia" interval={0} tick={{ fontSize: 12 }} padding={{ left: 0, right: 0 }} />
           <YAxis />
           <Tooltip />
           <Line

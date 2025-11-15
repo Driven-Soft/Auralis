@@ -113,7 +113,7 @@ const Dashboard = () => {
               pontos!
             </p>
           </section>
-          <section className="flex flex-col lg:flex-row gap-4 mx-4 mt-0">
+          <section className="flex flex-col lg:flex-row gap-4 mx-1 mt-0">
             <CardWrapper className="flex-col items-center flex-1">
               <MarcadorPonteiro
                 value={latest.score}
