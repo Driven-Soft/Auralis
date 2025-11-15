@@ -17,7 +17,7 @@ import { useUser } from "../context/User/useUser";
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const { userEmail, setUserEmail, setUserSenha, setUser } = useUser();
+  const { user, setUser } = useUser();
 
   return (
     <>
@@ -45,14 +45,12 @@ const Header = () => {
               <NavItem to="/dicas" icon={<Lightbulb />} text="Dicas" />
               <NavItem to="/faq" icon={<CircleQuestionMark />} text="FAQ" />
               <NavItem to="/integrantes" icon={<Users />} text="Integrantes" />
-              {userEmail ? (
+              {user ? (
                 <button
                   onClick={() => {
-                      setUserEmail("");
-                      setUserSenha("");
-                      setUser(null);
-                      navigate("/");
-                    }}
+                    setUser(null);
+                    navigate("/");
+                  }}
                   className="bg-linear-to-r from-primary to-secondary rounded-xl hover:scale-110 transition-all duration-200 ease-in-out shadow-glow-blue py-2 px-4 text-center font-bold text-white"
                 >
                   Sair
@@ -170,13 +168,11 @@ const Header = () => {
             </li>
             <hr className="w-full border-t-2 rounded-3xl border-gray-300 dark:border-gray-500" />
             <li>
-              {userEmail ? (
+              {user ? (
                 <div className="bg-linear-to-r from-primary to-secondary rounded-lg shadow-glow-blue p-2 text-center font-bold text-white">
                   <button
                     onClick={() => {
                       setMobileMenuOpen(false);
-                      setUserEmail("");
-                      setUserSenha("");
                       setUser(null);
                       navigate("/");
                     }}

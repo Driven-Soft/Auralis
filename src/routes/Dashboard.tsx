@@ -3,7 +3,6 @@ import Wrapper from "../components/Wrapper";
 import { useApi } from "../context/Api/useApi";
 import { useUser } from "../context/User/useUser";
 import type { dashboardType } from "../types/dashboardType";
-import type { ApiUser } from "../context/User/type";
 import { HeartHandshake } from "lucide-react";
 import CardWrapper from "../components/CardWrapper";
 import MarcadorPonteiro from "../components/MostradorPonteiro";
@@ -19,7 +18,7 @@ const Dashboard = () => {
       setLoading(true);
       try {
         const base = apiUrl;
-        const userId = (contextUser as ApiUser | undefined)?.id_usuario ?? 1;
+        const userId = contextUser?.id_usuario;
 
         const url = `${base}/registros/usuario/${userId}/semana`;
         const res = await fetch(url);
@@ -39,6 +38,24 @@ const Dashboard = () => {
 
     loadRegistros();
   }, [apiUrl, contextUser]);
+
+  // Se não houver registros, fornecer um fallback com todos os valores numéricos zerados
+  const latest: dashboardType =
+    registros && registros.length > 0
+      ? registros[0]
+      : {
+          id: 0,
+          id_usuario: contextUser?.id_usuario ?? 0,
+          hidratacao: 0,
+          tempo_sol: 0,
+          nivel_estresse: 0,
+          sono: 0,
+          tempo_tela: 0,
+          trabalho_horas: 0,
+          atividade_fisica: 0,
+          score: 0,
+          dataRegistro: "",
+        };
 
   if (loading) {
     return (
@@ -66,7 +83,7 @@ const Dashboard = () => {
               Seu último score de bem-estar está em
               <span className="text-secondary dark:text-primary text-xl">
                 {" "}
-                {registros ? registros[0]?.score : "carregando..."}
+                {latest.score}
               </span>{" "}
               pontos!
             </p>
@@ -74,7 +91,7 @@ const Dashboard = () => {
           <section className="flex flex-col md:flex-row gap-4 mx-4 mt-6">
             <CardWrapper className="flex-col items-center flex-1">
               <MarcadorPonteiro
-                value={registros ? registros[0]?.score : 0}
+                value={latest.score}
                 size={400}
                 title="Score de bem-estar"
               />

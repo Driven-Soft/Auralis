@@ -1,90 +1,90 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { UserContext } from "./context";
-import type { ApiUser, LoginResult } from "./type";
+import type { User, UserContextType } from "./type";
 import { useApi } from "../Api/useApi";
 
-export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const initialUser = (() => {
-    try {
-      const raw = localStorage.getItem("auralis_user");
-      return raw ? (JSON.parse(raw) as ApiUser) : null;
-    } catch {
-      return null;
-    }
-  })();
-
-  const [user, setUser] = useState<ApiUser | null>(initialUser);
-  const [userEmail, setUserEmail] = useState<string>(initialUser?.email ?? "");
-  const [userSenha, setUserSenha] = useState<string>("");
+export function UserProvider({ children }: { children: ReactNode }) {
+  const [user, setUserState] = useState<User | null>(null);
   const { apiUrl } = useApi();
 
-  const login = async (email: string, senha: string): Promise<LoginResult> => {
+  const STORAGE_KEY = "auralis_user";
+
+  const setUser: UserContextType["setUser"] = (u) => {
+    setUserState(u);
     try {
-      const res = await fetch(`${apiUrl}/usuarios/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, senha }),
-      });
-
-      const contentType = res.headers.get("content-type") || "";
-
-      if (!res.ok) {
-        if (contentType.includes("application/json")) {
-          const json = await res.json();
-          return {
-            success: false,
-            message: json?.message || JSON.stringify(json),
-          };
-        }
-        const text = await res.text();
-        return { success: false, message: text || `HTTP ${res.status}` };
+      if (u) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(u));
+      } else {
+        localStorage.removeItem(STORAGE_KEY);
       }
-
-      if (contentType.includes("application/json")) {
-        const json = await res.json();
-        // assume json is the user object
-        const apiUser = json as ApiUser;
-        setUser(apiUser);
-        setUserEmail(email);
-        setUserSenha(senha);
-        return { success: true, user: apiUser };
-      }
-
-      const text = await res.text();
-      return { success: true, message: text };
-    } catch (error) {
-      return {
-        success: false,
-        message: error instanceof Error ? error.message : String(error),
-      };
+    } catch (err) {
+      console.error("Erro ao persistir usuário no localStorage:", err);
     }
   };
 
   useEffect(() => {
     try {
-      if (user) {
-        localStorage.setItem("auralis_user", JSON.stringify(user));
-      } else {
-        localStorage.removeItem("auralis_user");
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as User;
+        setUserState(parsed);
       }
-    } catch (error) {
-      console.log("Erro ao salvar usuário no localStorage: ", error);
+    } catch (err) {
+      console.error("Erro ao ler usuário do localStorage:", err);
     }
-  }, [user]);
+  }, []);
+
+  const login: UserContextType["login"] = async (email, senha) => {
+    try {
+      const response = await fetch(`${apiUrl}usuarios/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      if (!response.ok) {
+        return {
+          success: false,
+          message: "Credenciais inválidas ou erro no servidor",
+          user: null,
+        };
+      }
+      const data = await response.json();
+
+      const userRaw = data.user ?? data;
+
+      const mappedUser: User = {
+        id_usuario: userRaw.idUsuario ?? userRaw.id_usuario ?? userRaw.id ?? 0,
+        nome: userRaw.nome ?? "",
+        email: userRaw.email ?? "",
+        senha: userRaw.senha ?? "",
+        genero: userRaw.genero ?? "",
+        data_nascimento: userRaw.nascimento ?? userRaw.data_nascimento ?? "",
+        data_cadastro: userRaw.dataCadastro ?? userRaw.data_cadastro ?? "",
+      };
+
+      setUser(mappedUser);
+
+      return {
+        success: data.success ?? true,
+        message: data.message ?? "",
+        user: mappedUser,
+      };
+    } catch (error) {
+      console.error("Erro ao acessar API:", error);
+      return {
+        success: false,
+        message: "Erro de conexão com servidor",
+        user: null,
+      };
+    }
+  };
 
   return (
-    <UserContext.Provider
-      value={{
-        userEmail,
-        userSenha,
-        user,
-        setUser,
-        setUserEmail,
-        setUserSenha,
-        login,
-      }}
-    >
+    <UserContext.Provider value={{ user, setUser, login }}>
       {children}
     </UserContext.Provider>
   );
-};
+}

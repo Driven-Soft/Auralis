@@ -3,9 +3,9 @@ import Home from "./Home";
 import { useUser } from "../context/User/useUser";
 
 const IndexRedirect = () => {
-  const { userEmail } = useUser();
+  const { user } = useUser();
 
-  if (userEmail && userEmail.length > 0) {
+  if (user) {
     return <Navigate to="/dashboard" replace />;
   }
 

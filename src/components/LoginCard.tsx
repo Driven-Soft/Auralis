@@ -6,11 +6,7 @@ import ButtonWrapper from "./ButtonWrapper";
 import { LogIn, UserPlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/User/useUser";
-
-type LoginForm = {
-  email: string;
-  senha: string;
-};
+import type { LoginForm } from "../types/loginFormType";
 
 const LoginCard = () => {
   const [loading, setLoading] = useState(false);
@@ -26,7 +22,8 @@ const LoginCard = () => {
   });
 
   const navigate = useNavigate();
-  const { setUserEmail, setUserSenha, setUser, login } = useUser();
+
+  const { setUser, login } = useUser();
 
   const onSubmit = async (data: LoginForm) => {
     const { email, senha } = data;
@@ -34,25 +31,31 @@ const LoginCard = () => {
 
     try {
       setLoading(true);
+
       if (!login)
-        throw new Error("login não disponível no contexto de usuário");
+        throw new Error("Função login não disponível no contexto de usuário");
+
       const result = await login(email, senha);
 
       if (result.success) {
-        console.log(`Login feito com sucesso! email:${email} senha:${senha}`);
-        setUserEmail(email);
-        setUserSenha(senha);
+        console.log(`Login feito com sucesso! email:${email}`);
 
-        if (result.user) setUser(result.user);
+        if (result.user) {
+          setUser(result.user);
+        }
+
         setInvalidCredentials(false);
-        await new Promise((r) => setTimeout(r, 300));
         navigate("/dashboard");
+
       } else {
         console.log("Falha no login:", result.message);
         setInvalidCredentials(true);
       }
+
     } catch (error) {
       console.error("Erro ao autenticar:", error);
+      setInvalidCredentials(true);
+
     } finally {
       setLoading(false);
       reset();
@@ -64,6 +67,7 @@ const LoginCard = () => {
       <div className="bg-linear-to-r from-primary to-secondary rounded-full p-4 shadow-glow-blue">
         <LogIn className="w-8 h-8 text-white" />
       </div>
+
       <div className="text-center my-6 flex flex-col gap-4">
         <h1 className="text-4xl font-bold text-texto-primary dark:text-white">
           Fazer Login
@@ -118,16 +122,17 @@ const LoginCard = () => {
             type="submit"
             disabled={isSubmitting}
             className="btn mt-2 btn-primary cursor-pointer w-[95%] px-4
-          border border-gray-300 dark:border-blue-800
-          bg-linear-to-r from-primary to-secondary
-          text-white font-semibold py-3 rounded-xl text-center
-          transition-all duration-200 ease-in-out
-          hover:scale-102
-          shadow-md"
+              border border-gray-300 dark:border-blue-800
+              bg-linear-to-r from-primary to-secondary
+              text-white font-semibold py-3 rounded-xl text-center
+              transition-all duration-200 ease-in-out
+              hover:scale-102
+              shadow-md"
           >
             Entrar
           </button>
         </div>
+
         {invalidCredentials && (
           <p className="text-xs text-red-500 mt-2 text-center">
             Credenciais inválidas! Tente novamente.
