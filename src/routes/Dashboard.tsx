@@ -6,6 +6,7 @@ import type { dashboardType } from "../types/dashboardType";
 import { HeartHandshake } from "lucide-react";
 import CardWrapper from "../components/CardWrapper";
 import MarcadorPonteiro from "../components/MostradorPonteiro";
+import GraficoScore from "../components/GraficoScore";
 
 const Dashboard = () => {
   const { apiUrl } = useApi();
@@ -20,7 +21,13 @@ const Dashboard = () => {
         const base = apiUrl;
         const userId = contextUser?.id_usuario;
 
-        const url = `${base}/registros/usuario/${userId}/semana`;
+        // Se não houver userId (usuário não pronto), pular a requisição
+        if (!userId) {
+          setRegistros(null);
+          return;
+        }
+
+        const url = `${base}registros/usuario/${userId}/semana`;
         const res = await fetch(url);
 
         if (!res.ok)
@@ -39,7 +46,7 @@ const Dashboard = () => {
     loadRegistros();
   }, [apiUrl, contextUser]);
 
-  // Se não houver registros, fornecer um fallback com todos os valores numéricos zerados
+  // FALLBACK -> SEM REGISTROS
   const latest: dashboardType =
     registros && registros.length > 0
       ? registros[0]
@@ -56,6 +63,24 @@ const Dashboard = () => {
           score: 0,
           dataRegistro: "",
         };
+
+  // dashBoardType[] -> (RegistroAPI[])
+  const registrosParaGrafico =
+    registros && registros.length > 0
+      ? registros.map((r) => ({
+          idRegistro: r.id,
+          idUsuario: r.id_usuario,
+          hidratacao: r.hidratacao,
+          tempo_sol: r.tempo_sol,
+          nivel_estresse: r.nivel_estresse,
+          sono: r.sono,
+          tempo_tela: r.tempo_tela,
+          trabalho_horas: r.trabalho_horas,
+          atividade_fisica: r.atividade_fisica,
+          score: r.score,
+          dataRegistro: r.dataRegistro,
+        }))
+      : [];
 
   if (loading) {
     return (
@@ -74,7 +99,7 @@ const Dashboard = () => {
     <Wrapper>
       {contextUser ? (
         <>
-          <section className="py-4 px-6">
+          <section className="py-8 px-6">
             <div className="flex flex-row text-center items-center gap-2 text-4xl font-bold text-gray-800 dark:text-white">
               <h1>Olá, {contextUser.nome}!</h1>
               <HeartHandshake />
@@ -88,7 +113,7 @@ const Dashboard = () => {
               pontos!
             </p>
           </section>
-          <section className="flex flex-col md:flex-row gap-4 mx-4 mt-6">
+          <section className="flex flex-col lg:flex-row gap-4 mx-4 mt-0">
             <CardWrapper className="flex-col items-center flex-1">
               <MarcadorPonteiro
                 value={latest.score}
@@ -97,7 +122,11 @@ const Dashboard = () => {
               />
             </CardWrapper>
             <CardWrapper className="flex-1">
-              <p></p>
+              <div className="flex items-center text-center justify-center mx-auto w-full">
+                {registrosParaGrafico.length > 0 && (
+                  <GraficoScore registros={registrosParaGrafico} />
+                )}
+              </div>
             </CardWrapper>
           </section>
         </>
