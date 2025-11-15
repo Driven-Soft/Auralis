@@ -26,7 +26,7 @@ const ButtonWrapper = ({ onClick, children, className = "", to, href }: WrapperP
   }
  
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center w-full">
       <button
         onClick={handleClick}
         className={`

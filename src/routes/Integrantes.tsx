@@ -41,12 +41,14 @@ const Integrantes = () => {
             Estamos sempre em busca de pessoas talentosas e apaixonadas por
             fazer a diferença na vida dos profissionais.
           </p>
+          <div className="w-[60%]">
           <ButtonWrapper
             href="https://github.com/Driven-Soft"
             className="bg-secondary text-white dark:bg-secondary border-2"
-          >
+            >
             Conheça nossa Organização
           </ButtonWrapper>
+            </div>
         </CardWrapper>
       </section>
     </Wrapper>

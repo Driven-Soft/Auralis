@@ -6,9 +6,13 @@ import CardWrapper from "../components/CardWrapper";
 import type { cadastroFormType } from "../types/cadastroFormType";
 import LabelWrapper from "../components/LabelWrapper";
 import Hero from "../components/Hero";
+import { useApi } from "../context/Api/useApi";
+import ButtonWrapper from "../components/ButtonWrapper";
 
 const Cadastro = () => {
   const [success, setSuccess] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const {
     register,
@@ -29,6 +33,7 @@ const Cadastro = () => {
 
   const nascimentoValue = watch("nascimento");
   const generoValue = watch("genero");
+  const { apiUrl } = useApi();
 
   useEffect(() => {
     register("nascimento", {
@@ -66,11 +71,48 @@ const Cadastro = () => {
   };
 
   const onSubmit = async (data: cadastroFormType) => {
-    // CHAMADA DE API
-    console.log("Cadastro enviado:", data);
-    setSuccess("Cadastro realizado com sucesso!");
-    reset();
-    setTimeout(() => setSuccess(null), 4000);
+    let nascimentoISO: string | null = null;
+    if (data.nascimento) {
+      const parts = data.nascimento.split("/").map((p) => Number(p));
+      if (parts.length === 3) {
+        const [d, m, y] = parts;
+        if (!Number.isNaN(d) && !Number.isNaN(m) && !Number.isNaN(y)) {
+          const mm = String(m).padStart(2, "0");
+          const dd = String(d).padStart(2, "0");
+          nascimentoISO = `${y}-${mm}-${dd}`;
+        }
+      }
+    }
+
+    const payload = {
+      nome: data.nome,
+      email: data.email,
+      nascimento: nascimentoISO ?? data.nascimento,
+      genero: data.genero,
+      senha: data.senha,
+    };
+
+    setError(null);
+    try {
+      setLoading(true);
+      const res = await fetch(`${apiUrl}usuarios`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json().catch(() => null);
+      console.log("Dados enviados com sucesso:", result ?? data);
+      reset();
+      setSuccess("Cadastro realizado com sucesso! Você já pode fazer login clicando no botão acima!");
+    } catch (err) {
+      console.error("Erro de rede ao cadastrar:", err);
+      setError("Erro ao conectar com o servidor. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -157,10 +199,9 @@ const Cadastro = () => {
               }`}
             >
               <option value="">Selecione</option>
-              <option value="masculino">Masculino</option>
-              <option value="feminino">Feminino</option>
-              <option value="outro">Outro</option>
-              <option value="prefiroNaoDizer">Prefiro não dizer</option>
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+              <option value="O">Outro</option>
             </select>
             {errors.genero && (
               <p className="text-xs text-red-500 mt-1">
@@ -190,24 +231,37 @@ const Cadastro = () => {
             )}
           </div>
 
-          <div className="flex items-center justify-center">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="btn btn-primary cursor-pointer w-[95%] mt-2 px-4
+          <div className="flex items-center justify-center w-full">
+            {success ? (
+              <ButtonWrapper className="w-[95%] mt-2 px-4" to="/#login">Voltar para o login</ButtonWrapper>
+            ) : (
+              <button
+                type="submit"
+                disabled={isSubmitting || loading}
+                className="btn btn-primary cursor-pointer w-[95%] mt-2 px-4
           border border-gray-300 dark:border-blue-800
           bg-linear-to-r from-primary to-secondary
           text-white font-semibold py-3 rounded-xl text-center
           transition-all duration-200 ease-in-out
           hover:scale-102
           shadow-md"
-            >
-              Criar perfil
-            </button>
+              >
+                Criar perfil
+              </button>
+            )}
           </div>
+          {loading && (
+            <div className="flex items-center justify-center gap-2 mt-4">
+              <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin border-gray-400 dark:border-gray-00" />
+              <p className="text-lg font-bold text-gray-600 dark:text-gray-300">
+                Carregando...
+              </p>
+            </div>
+          )}
           {success && (
             <p className="text-sm text-center text-green-600">{success}</p>
           )}
+          {error && <p className="text-sm text-center text-red-600">{error}</p>}
         </form>
       </CardWrapper>
     </Wrapper>
