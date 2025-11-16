@@ -172,20 +172,20 @@ const Dashboard = () => {
               </CardWrapper>
             </section>
           </div>
-
+<hr className="mx-auto border-t-2 rounded-3xl w-[90%] lg:w-[50%] mt-8 border-gray-300 dark:border-gray-500" />
           <section className="py-8 px-6 items-center justify-center text-left w-[90%] md:w-[50%] mx-auto">
             <ButtonWrapper className="bg-secondary text-white dark:bg-secondary border-2 gap-2">
               <Plus />
               Adicionar registro diário
             </ButtonWrapper>
           </section>
-
+          <hr className="mx-auto border-t-2 rounded-3xl w-[90%] lg:w-[50%] mb-4 border-gray-300 dark:border-gray-500" />
           <section className="py-2 px-2 w-[90%] sm:px-10 text-lg sm:text-2xl text-gray-800 dark:text-white font-bold mb-4 flex flex-row items-center gap-2 flex-nowrap justify-center sm:justify-start text-center sm:text-left mx-auto sm:mx-0">
             <h1>Últimas Métricas Registradas</h1>
             <ChartColumnBig />
           </section>
 
-          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-2 sm:px-10 items-center">
+          <section className="grid grid-cols-1 pb-6 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 px-2 sm:px-10 items-center">
             <MetricaCard
               icon={getIcon("hidratacao")}
               title={"Hidratação"}
@@ -236,7 +236,7 @@ const Dashboard = () => {
               text="horas"
               category={"tempo_tela"}
             />
-            <div className="hidden lg:flex col-span-3 justify-center pb-4 w-[50%] mx-auto">
+            <div className="hidden lg:flex col-span-3 justify-center pb-6 sm:pb-0 w-[50%] mx-auto">
               <MetricaCard
                 icon={getIcon("tempo_tela")}
                 title={"Tempo de Tela"}

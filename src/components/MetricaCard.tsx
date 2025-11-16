@@ -42,7 +42,7 @@ const MetricaCard = ({ icon, title, text, colorClass, category, valor, className
   return (
     <div
       className={`w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-background-secondary dark:bg-dark-background-secondary
-         shadow-md p-6 hover:shadow-lg transition-all hover:scale-102 duration-200 ease-in-out ${className}`}
+         shadow-md py-3 px-5 sm:p-6 hover:shadow-lg transition-all hover:scale-102 duration-200 ease-in-out ${className}`}
     >
       <div className="flex flex-row gap-3">
         <div className={`w-12 h-12 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 ${appliedColorClass}`}>
@@ -59,7 +59,7 @@ const MetricaCard = ({ icon, title, text, colorClass, category, valor, className
           {title}
         </h3>
         <p className="text-lg text-texto-primary dark:text-gray-400 leading-snug">
-          <strong className="text-3xl">{valor}</strong> {text}
+          <strong className="text-3xl dark:text-white">{valor}</strong> {text}
         </p>
       </div>
     </div>
