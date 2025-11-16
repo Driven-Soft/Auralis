@@ -1,12 +1,26 @@
-import { useEffect, useState } from "react";
+import { createElement, useEffect, useState } from "react";
 import Wrapper from "../components/Wrapper";
 import { useApi } from "../context/Api/useApi";
 import { useUser } from "../context/User/useUser";
 import type { dashboardType } from "../types/dashboardType";
-import { HeartHandshake } from "lucide-react";
+import {
+  AlarmClock,
+  BriefcaseBusiness,
+  ChartColumnBig,
+  Droplets,
+  Dumbbell,
+  HeartHandshake,
+  MonitorSmartphone,
+  Plus,
+  Sun,
+  Zap,
+} from "lucide-react";
 import CardWrapper from "../components/CardWrapper";
 import MarcadorPonteiro from "../components/MostradorPonteiro";
 import GraficoScore from "../components/GraficoScore";
+import ButtonWrapper from "../components/ButtonWrapper";
+import MetricaCard from "../components/MetricaCard";
+import type { MetricaType } from "../types/metricaType";
 
 const Dashboard = () => {
   const { apiUrl } = useApi();
@@ -85,7 +99,7 @@ const Dashboard = () => {
   if (loading) {
     return (
       <Wrapper>
-        <div className="flex flex-row items-center justify-center gap-4 mt-4">
+        <div className="flex flex-row items-center justify-center gap-4 mt-12">
           <p className="text-xl font-bold text-gray-600 dark:text-gray-300">
             Carregando seus dados...
           </p>
@@ -95,39 +109,142 @@ const Dashboard = () => {
     );
   }
 
+  function getIcon(category: MetricaType) {
+    switch (category) {
+      case "hidratacao":
+        return createElement(Droplets, { className: "w-5 h-5" });
+      case "tempo_sol":
+        return createElement(Sun, { className: "w-5 h-5" });
+      case "nivel_estresse":
+        return createElement(Zap, { className: "w-5 h-5" });
+      case "sono":
+        return createElement(AlarmClock, { className: "w-5 h-5" });
+      case "trabalho_horas":
+        return createElement(BriefcaseBusiness, { className: "w-5 h-5" });
+      case "atividade_fisica":
+        return createElement(Dumbbell, { className: "w-5 h-5" });
+      case "tempo_tela":
+        return createElement(MonitorSmartphone, { className: "w-5 h-5" });
+      default:
+        return null;
+    }
+  }
+
   return (
     <Wrapper>
       {contextUser ? (
         <>
-          <section className="py-8 px-6">
-            <div className="flex flex-row text-center items-center gap-2 text-4xl font-bold text-gray-800 dark:text-white">
-              <h1>Olá, {contextUser.nome}!</h1>
-              <HeartHandshake />
-            </div>
-            <p className="text-gray-600 dark:text-gray-400 text-lg">
-              Seu último score de bem-estar está em
-              <span className="text-secondary dark:text-primary text-xl">
-                {" "}
-                {latest.score}
-              </span>{" "}
-              pontos!
-            </p>
-          </section>
-          <section className="flex flex-col lg:flex-row gap-4 mx-1 mt-0">
-            <CardWrapper className="flex-col items-center flex-1">
-              <MarcadorPonteiro
-                value={latest.score}
-                size={400}
-                title="Score de bem-estar"
-              />
-            </CardWrapper>
-            <CardWrapper className="flex-1">
-              <div className="flex items-center text-center justify-center mx-auto w-full">
-                {registrosParaGrafico.length > 0 && (
-                  <GraficoScore registros={registrosParaGrafico} />
-                )}
+          <section className="py-8 px-6 items-center justify-center text-center">
+            <div className="flex flex-col text-left">
+              <div className="flex flex-row text-center items-center gap-2 text-4xl font-bold text-gray-800 dark:text-white">
+                <h1>Olá, {contextUser.nome}!</h1>
+                <HeartHandshake />
               </div>
-            </CardWrapper>
+              <p className="text-gray-600 dark:text-gray-400 text-lg">
+                Seu último score de bem-estar está em
+                <span className="text-secondary dark:text-primary text-xl">
+                  {" "}
+                  {latest.score}
+                </span>{" "}
+                pontos!
+              </p>
+            </div>
+          </section>
+          <div className="px-2 md:px-4">
+            <section className="flex flex-col lg:flex-row gap-4 mx-1 mt-0">
+              <CardWrapper className="flex-col items-center flex-1">
+                <MarcadorPonteiro
+                  value={latest.score}
+                  size={400}
+                  title="Score de bem-estar"
+                />
+              </CardWrapper>
+              <CardWrapper className="flex-1">
+                <div className="flex items-center text-center justify-center mx-auto w-full">
+                  {registrosParaGrafico.length > 0 ? (
+                    <GraficoScore registros={registrosParaGrafico} />
+                  ) : (
+                    <p className="text-gray-600 dark:text-gray-400">
+                      Nenhum registro disponível para exibir o gráfico.
+                    </p>
+                  )}
+                </div>
+              </CardWrapper>
+            </section>
+          </div>
+
+          <section className="py-8 px-6 items-center justify-center text-left w-[90%] md:w-[50%] mx-auto">
+            <ButtonWrapper className="bg-secondary text-white dark:bg-secondary border-2 gap-2">
+              <Plus />
+              Adicionar registro diário
+            </ButtonWrapper>
+          </section>
+
+          <section className="py-2 px-2 w-[90%] sm:px-10 text-lg sm:text-2xl text-gray-800 dark:text-white font-bold mb-4 flex flex-row items-center gap-2 flex-nowrap justify-center sm:justify-start text-center sm:text-left mx-auto sm:mx-0">
+            <h1>Últimas Métricas Registradas</h1>
+            <ChartColumnBig />
+          </section>
+
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-2 sm:px-10 items-center">
+            <MetricaCard
+              icon={getIcon("hidratacao")}
+              title={"Hidratação"}
+              valor={`${latest.hidratacao}`}
+              text="ml"
+              category={"hidratacao"}
+            />
+            <MetricaCard
+              icon={getIcon("tempo_sol")}
+              title={"Tempo de Sol"}
+              valor={`${latest.tempo_sol}`}
+              text="minutos"
+              category={"tempo_sol"}
+            />
+            <MetricaCard
+              icon={getIcon("nivel_estresse")}
+              title={"Nível de Estresse"}
+              valor={`${latest.nivel_estresse}`}
+              text="/10"
+              category={"nivel_estresse"}
+            />
+            <MetricaCard
+              icon={getIcon("sono")}
+              title={"Sono"}
+              valor={`${latest.sono}`}
+              text="horas"
+              category={"sono"}
+            />
+            <MetricaCard
+              icon={getIcon("trabalho_horas")}
+              title={"Horas de Trabalho"}
+              valor={`${latest.trabalho_horas}`}
+              text="horas"
+              category={"trabalho_horas"}
+            />
+            <MetricaCard
+              icon={getIcon("atividade_fisica")}
+              title={"Atividade Física"}
+              valor={`${latest.atividade_fisica}`}
+              text="minutos"
+              category={"atividade_fisica"}
+            />
+            <MetricaCard
+              className="lg:hidden"
+              icon={getIcon("tempo_tela")}
+              title={"Tempo de Tela"}
+              valor={`${latest.tempo_tela}`}
+              text="horas"
+              category={"tempo_tela"}
+            />
+            <div className="hidden lg:flex col-span-3 justify-center pb-4 w-[50%] mx-auto">
+              <MetricaCard
+                icon={getIcon("tempo_tela")}
+                title={"Tempo de Tela"}
+                valor={`${latest.tempo_tela}`}
+                text="horas"
+                category={"tempo_tela"}
+              />
+            </div>
           </section>
         </>
       ) : (
