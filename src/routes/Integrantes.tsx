@@ -25,7 +25,7 @@ const Integrantes = () => {
         ))}
       </section>
 
-      <section className="pb-12 mx-12">
+      <section className="pb-12 mx-4 lg:mx-12">
         <CardWrapper className="flex-col gap-4 text-center">
         <div className="shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-10 md:h-10 lg:w-12 lg:h-12 transition-all duration-200 rounded-lg">
           <img
@@ -41,7 +41,7 @@ const Integrantes = () => {
             Estamos sempre em busca de pessoas talentosas e apaixonadas por
             fazer a diferença na vida dos profissionais.
           </p>
-          <div className="w-[60%]">
+          <div className="w-[90%] sm:w-[60%]">
           <ButtonWrapper
             href="https://github.com/Driven-Soft"
             className="bg-secondary text-white dark:bg-secondary border-2"

@@ -1,4 +1,4 @@
-export  type MetricaType =
+export type MetricaType =
   | "hidratacao"
   | "tempo_sol"
   | "nivel_estresse"

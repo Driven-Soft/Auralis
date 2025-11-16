@@ -172,7 +172,7 @@ const Dashboard = () => {
               </CardWrapper>
             </section>
           </div>
-<hr className="mx-auto border-t-2 rounded-3xl w-[90%] lg:w-[50%] mt-8 border-gray-300 dark:border-gray-500" />
+          <hr className="mx-auto border-t-2 rounded-3xl w-[90%] lg:w-[50%] mt-8 border-gray-300 dark:border-gray-500" />
           <section className="py-8 px-6 items-center justify-center text-left w-[90%] md:w-[50%] mx-auto">
             <ButtonWrapper className="bg-secondary text-white dark:bg-secondary border-2 gap-2">
               <Plus />
@@ -245,6 +245,23 @@ const Dashboard = () => {
                 category={"tempo_tela"}
               />
             </div>
+          </section>
+
+          <section>
+            <CardWrapper>
+              <div className="flex flex-col md:flex-row gap-4 justify-center items-center mx-auto">
+                <div>
+                  <ButtonWrapper to="/notificacoes">
+                    Receber notificações
+                  </ButtonWrapper>
+                </div>
+                <div>
+                  <ButtonWrapper to="/feedback">
+                    Envie seu feedback
+                  </ButtonWrapper>
+                </div>
+              </div>
+            </CardWrapper>
           </section>
         </>
       ) : (
