@@ -27,8 +27,6 @@ interface GraficoScoreProps {
 }
 
 export default function GraficoScore({ registros }: GraficoScoreProps) {
-  const dias = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-
   const dados = registros
     .slice()
     .sort(
@@ -37,22 +35,23 @@ export default function GraficoScore({ registros }: GraficoScoreProps) {
     )
     .map((item) => {
       const data = new Date(item.dataRegistro);
+      const dia = String(data.getDate()).padStart(2, "0");
+      const mes = String(data.getMonth() + 1).padStart(2, "0");
       return {
-        dia: dias[data.getDay()],
+        dia: `${dia}/${mes}`,
         valor: item.score,
       };
     });
 
   return (
-    <div className="w-full h-64 mr-6">
+    <div className="w-full h-64">
       <ResponsiveContainer width="100%" height={280}>
-        <LineChart data={dados}>
+        <LineChart data={dados} margin={{ right: 16,  left: -26}}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="dia"
             interval={0}
             tick={{ fontSize: 12 }}
-            padding={{ left: 0, right: 0 }}
           />
           <YAxis />
           <Tooltip />

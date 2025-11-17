@@ -1,26 +1,12 @@
 import { Sun, Moon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useTheme } from "../context/Theme/useTheme";
 
 const DarkModeToggle = () => {
-  const [darkMode, setDarkMode] = useState(
-    () => localStorage.getItem("theme") === "dark"
-  );
-
-  useEffect(() => {
-    const root = document.documentElement;
-
-    if (darkMode) {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [darkMode]);
+  const { isDark, toggleTheme } = useTheme();
 
   return (
     <article
-      onClick={() => setDarkMode((prev) => !prev)}
+      onClick={toggleTheme}
       className="
       hover:bg-selected dark:hover:bg-dark-selected rounded-xl
         w-full h-full flex 
@@ -29,7 +15,7 @@ const DarkModeToggle = () => {
     >
       <span className="flex-1 flex items-center justify-center w-full h-full cursor-pointer">
         <div className="flex flex-col items-center justify-center w-full h-full p-2">
-          {darkMode ? <Sun /> : <Moon />}
+          {isDark ? <Sun /> : <Moon />}
         </div>
       </span>
     </article>

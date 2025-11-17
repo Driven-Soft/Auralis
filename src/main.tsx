@@ -13,6 +13,7 @@ import Dashboard from "./routes/Dashboard";
 import Cadastro from "./routes/Cadastro";
 import { ApiProvider } from "./context/Api/ApiProvider";
 import { UserProvider } from "./context/User/UserProvider";
+import { ThemeProvider } from "./context/Theme/ThemeProvider";
 import IntegranteDetalhe from "./routes/IntegranteDetalhe";
 import Notificacoes from "./routes/Notificacoes";
 import Feedback from "./routes/Feedback";
@@ -39,10 +40,12 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ApiProvider>
-      <UserProvider>
-        <RouterProvider router={router} />
-      </UserProvider>
-    </ApiProvider>
+    <ThemeProvider>
+      <ApiProvider>
+        <UserProvider>
+          <RouterProvider router={router} />
+        </UserProvider>
+      </ApiProvider>
+    </ThemeProvider>
   </StrictMode>
 );

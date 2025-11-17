@@ -49,8 +49,8 @@ const Home = () => {
           <HomeCard
             icon={<BowArrow />}
             iconClassName="text-green-500"
-            title="Sistema de gamificação"
-            texto="Ganhe XP e suba de nível cuidando da sua saúde"
+            title="Descubra suas falhas"
+            texto="Registre-se diariamente e identifique áreas para melhorar"
           />
           <HomeCard
             icon={<Heart />}

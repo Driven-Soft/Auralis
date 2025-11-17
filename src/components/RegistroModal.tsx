@@ -21,11 +21,13 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
   const { apiUrl } = useApi();
   const [isLoading, setIsLoading] = useState(false);
   const [recordId, setRecordId] = useState<number | null>(null);
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     if (!open) {
       setIsLoading(false);
       setRecordId(null);
+      setShowError(false);
     }
   }, [open]);
 
@@ -34,6 +36,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
   const onSubmit = async (data: RegistroFormType) => {
     try {
       setIsLoading(true);
+      setShowError(false);
 
       const payload: RegistroFormType = {
         idUsuario: user?.id_usuario ?? 0,
@@ -72,6 +75,12 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const onError = (errs: unknown) => {
+    setShowError(true);
+    setIsLoading(false);
+    console.debug("Validation errors:", errs);
   };
 
   const handleDelete = async () => {
@@ -150,7 +159,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
           </div>
         ) : (
           <>
-            <div className="flex flex-col gap-1 text-left w-full mb-6">
+            <div className="flex flex-col gap-1 text-left w-full mb-4">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                 Registro diário
               </h2>
@@ -160,15 +169,22 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
             </div>
 
             <form
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit(onSubmit, onError)}
               className="w-full space-y-4"
             >
+              {showError && (
+                <div className="w-full">
+                  <p className="text-sm text-red-600">
+                    Preencha todos os dados para enviar!
+                  </p>
+                </div>
+              )}
               <section className="grid grid-cols-2 gap-2">
                 <div className="flex flex-col justify-between">
                   <LabelWrapper>Hidratação (ml)</LabelWrapper>
                   <input
                     type="number"
-                    {...register("hidratacao")}
+                    {...register("hidratacao", { required: true })}
                     className="text-gray-800 px-3 dark:text-white w-full input input-bordered bg-blue-50 p-2 rounded-lg border placeholder:font-light dark:placeholder:text-gray-400 border-gray-200 dark:bg-gray-800 dark:border-gray-600"
                     placeholder="Ex.: 2000"
                   />
@@ -178,7 +194,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
                   <LabelWrapper>Tempo de sol (min)</LabelWrapper>
                   <input
                     type="number"
-                    {...register("tempo_sol")}
+                    {...register("tempo_sol", { required: true })}
                     className="text-gray-800 px-3 dark:text-white w-full input input-bordered bg-blue-50 p-2 rounded-lg border placeholder:font-light dark:placeholder:text-gray-400 border-gray-200 dark:bg-gray-800 dark:border-gray-600"
                     placeholder="Ex.: 30"
                   />
@@ -190,7 +206,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
                     type="number"
                     min={1}
                     max={10}
-                    {...register("nivel_estresse")}
+                    {...register("nivel_estresse", { required: true })}
                     className="text-gray-800 px-3 dark:text-white w-full input input-bordered bg-blue-50 p-2 rounded-lg border placeholder:font-light dark:placeholder:text-gray-400 border-gray-200 dark:bg-gray-800 dark:border-gray-600"
                     placeholder="Ex.: 5"
                   />
@@ -201,7 +217,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
                   <input
                     type="number"
                     step="0.1"
-                    {...register("sono")}
+                    {...register("sono", { required: true })}
                     className="text-gray-800 px-3 dark:text-white w-full input input-bordered bg-blue-50 p-2 rounded-lg border placeholder:font-light dark:placeholder:text-gray-400 border-gray-200 dark:bg-gray-800 dark:border-gray-600"
                     placeholder="Ex.: 7.5"
                   />
@@ -212,7 +228,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
                   <input
                     type="number"
                     step="0.1"
-                    {...register("trabalho_horas")}
+                    {...register("trabalho_horas", { required: true })}
                     className="text-gray-800 px-3 dark:text-white w-full input input-bordered bg-blue-50 p-2 rounded-lg border placeholder:font-light dark:placeholder:text-gray-400 border-gray-200 dark:bg-gray-800 dark:border-gray-600"
                     placeholder="Ex.: 8"
                   />
@@ -222,7 +238,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
                   <LabelWrapper>Tempo de atividade física (min)</LabelWrapper>
                   <input
                     type="number"
-                    {...register("atividade_fisica")}
+                    {...register("atividade_fisica", { required: true })}
                     className="text-gray-800 px-3 dark:text-white w-full input input-bordered bg-blue-50 p-2 rounded-lg border placeholder:font-light dark:placeholder:text-gray-400 border-gray-200 dark:bg-gray-800 dark:border-gray-600"
                     placeholder="Ex.: 45"
                   />
@@ -233,7 +249,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
                   <input
                     type="number"
                     step="0.1"
-                    {...register("tempo_tela")}
+                    {...register("tempo_tela", { required: true })}
                     className="text-gray-800 px-3 dark:text-white w-full input input-bordered bg-blue-50 p-2 rounded-lg border placeholder:font-light dark:placeholder:text-gray-400 border-gray-200 dark:bg-gray-800 dark:border-gray-600"
                     placeholder="Ex.: 3.5"
                   />
