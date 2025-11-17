@@ -7,10 +7,13 @@ import {
   AlarmClock,
   BriefcaseBusiness,
   ChartColumnBig,
+  ContactIcon,
   Droplets,
   Dumbbell,
   HeartHandshake,
+  MessageSquare,
   MonitorSmartphone,
+  Phone,
   Plus,
   Sun,
   Zap,
@@ -290,19 +293,52 @@ const Dashboard = () => {
             </div>
           </section>
 
-          <section>
-            <CardWrapper>
-              <div className="flex flex-col md:flex-row gap-4 justify-center items-center mx-auto">
-                <div>
-                  <ButtonWrapper to="/notificacoes">
-                    Receber notificações
-                  </ButtonWrapper>
+          <hr className="mx-auto border-t-2 rounded-3xl w-[90%] lg:w-[70%] mb-4 border-gray-300 dark:border-gray-500" />
+          <section className="py-2 px-2 w-[90%] sm:px-10 text-lg sm:text-2xl text-gray-800 dark:text-white font-bold mb-4 flex flex-row items-center gap-2 flex-nowrap justify-center sm:justify-start text-center sm:text-left mx-auto sm:mx-0">
+            <h1>Seção de contato</h1>
+            <ContactIcon />
+          </section>
+
+          <section className="flex flex-col md:flex-row gap-4 mx-4 pb-4">
+            <CardWrapper className="flex-1">
+              <div className="flex flex-col justify-center mx-auto">
+                <div className="flex flex-1 flex-row gap-2 ">
+                  <div className="w-10 h-10 text-indigo-600 bg-indigo-50 dark:bg-blue-950 dark:text-blue-400  flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700">
+                    <Phone />
+                  </div>
+                  <h2 className="text-2xl font-medium text-gray-800 dark:text-white text-center">
+                    Notificações
+                  </h2>
                 </div>
-                <div>
-                  <ButtonWrapper to="/feedback">
-                    Envie seu feedback
-                  </ButtonWrapper>
+                <div className="pb-5 pt-3 text-sm text-gray-500 dark:text-gray-400">
+                  <p>
+                    Receba lembretes diários para registrar suas métricas e
+                    manter seu bem-estar em dia!
+                  </p>
                 </div>
+                <ButtonWrapper to="/notificacoes">
+                  Receber notificações
+                </ButtonWrapper>
+              </div>
+            </CardWrapper>
+
+            <CardWrapper className="flex-1">
+              <div className="flex flex-col justify-center mx-auto">
+                <div className="flex flex-1 flex-row gap-2 ">
+                  <div className="w-10 h-10 text-indigo-600 bg-indigo-50 dark:bg-blue-950 dark:text-blue-400  flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700">
+                    <MessageSquare />
+                  </div>
+                  <h2 className="text-2xl font-medium text-gray-800 dark:text-white text-center">
+                    Feedback
+                  </h2>
+                </div>
+                <div className="pb-5 pt-3 text-sm text-gray-500 dark:text-gray-400">
+                  <p>
+                    Envie um feedback sobre nossa plataforma e ajude-nos a
+                    melhorar continuamente!
+                  </p>
+                </div>
+                <ButtonWrapper to="/feedback">Enviar feedback</ButtonWrapper>
               </div>
             </CardWrapper>
           </section>

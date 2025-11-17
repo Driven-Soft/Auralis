@@ -1,4 +1,9 @@
-import { HeartHandshakeIcon, MessageSquare, MessageSquareHeart } from "lucide-react";
+import {
+  HeartHandshakeIcon,
+  MessageSquare,
+  MessageSquareHeart,
+  MoveLeft,
+} from "lucide-react";
 import ButtonWrapper from "../components/ButtonWrapper";
 import Hero from "../components/Hero";
 import Wrapper from "../components/Wrapper";
@@ -8,6 +13,7 @@ import { useApi } from "../context/Api/useApi";
 import { useUser } from "../context/User/useUser";
 import type { FeedbackType } from "../types/feedbackType";
 import CardWrapper from "../components/CardWrapper";
+import { Link } from "react-router-dom";
 
 const Feedback = () => {
   const {
@@ -61,14 +67,21 @@ const Feedback = () => {
         iconClassName="bg-linear-to-r from-blue-400 to-blue-600 shadow-glow-blue"
       />
 
+      <div className="w-[95%] lg:w-[70%] mx-auto pl-2 mt-6 text-gray-700 dark:text-gray-400">
+        <Link to="/dashboard" className="flex flex-row items-center">
+          <MoveLeft className="mt-1 mr-2" />
+          Voltar para seu perfil
+        </Link>
+      </div>
+
       <CardWrapper className="items-center my-4 mx-2">
         {isLoading ? (
           <div className="flex flex-row items-center justify-center gap-4 m-4">
-          <p className="text-xl font-bold text-gray-600 dark:text-gray-100">
-            Enviando seu feedback...
-          </p>
-          <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin border-gray-400 dark:border-gray-00" />
-        </div>
+            <p className="text-xl font-bold text-gray-600 dark:text-gray-100">
+              Enviando seu feedback...
+            </p>
+            <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin border-gray-400 dark:border-gray-00" />
+          </div>
         ) : (
           <>
             {showSuccess ? (
@@ -77,6 +90,9 @@ const Feedback = () => {
                   Obrigado! Sua sugestão foi enviada com sucesso!
                 </p>
                 <HeartHandshakeIcon className="w-16 h-16 text-green-400" />
+                <ButtonWrapper className="mt-4" to="/dashboard">
+                  Voltar para seu perfil
+                </ButtonWrapper>
               </div>
             ) : (
               <form onSubmit={handleSubmit(onSubmit)} className="mx-1 sm:mx-4">
@@ -202,7 +218,10 @@ const Feedback = () => {
                 </div>
 
                 {/* BOTÃO */}
-                <ButtonWrapper type="submit" className="mt-4 bg-secondary text-white dark:bg-secondary border-2">
+                <ButtonWrapper
+                  type="submit"
+                  className="mt-4 bg-secondary text-white dark:bg-secondary border-2"
+                >
                   Enviar
                 </ButtonWrapper>
               </form>

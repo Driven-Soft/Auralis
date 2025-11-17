@@ -92,7 +92,7 @@ const MetricaCard = ({
         </div>
         <div className="flex items-center">
           <span
-            className={`text-sm ${appliedColorClass} rounded-full py-1 px-2 border border-gray-200 dark:border-gray-700`}
+            className={`text-sm ${appliedColorClass} rounded-full py-1 px-4 border border-gray-200 dark:border-gray-700`}
           >
             {categoryLabels[category]}
           </span>
