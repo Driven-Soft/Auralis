@@ -96,6 +96,17 @@ const Dashboard = () => {
         }))
       : [];
 
+  const previous = registros && registros.length > 1 ? registros[1] : null;
+
+  const percentDiff = (
+    latestVal: number,
+    prevVal: number | null
+  ): number | null => {
+    if (prevVal === null || prevVal === undefined) return null;
+    if (prevVal === 0) return latestVal === 0 ? 0 : null;
+    return ((latestVal - prevVal) / prevVal) * 100;
+  };
+
   if (loading) {
     return (
       <Wrapper>
@@ -190,6 +201,10 @@ const Dashboard = () => {
               icon={getIcon("hidratacao")}
               title={"Hidratação"}
               valor={`${latest.hidratacao}`}
+              diffPercent={percentDiff(
+                latest.hidratacao,
+                previous ? previous.hidratacao : null
+              )}
               text="ml"
               category={"hidratacao"}
             />
@@ -197,6 +212,10 @@ const Dashboard = () => {
               icon={getIcon("tempo_sol")}
               title={"Tempo de Sol"}
               valor={`${latest.tempo_sol}`}
+              diffPercent={percentDiff(
+                latest.tempo_sol,
+                previous ? previous.tempo_sol : null
+              )}
               text="minutos"
               category={"tempo_sol"}
             />
@@ -204,6 +223,10 @@ const Dashboard = () => {
               icon={getIcon("nivel_estresse")}
               title={"Nível de Estresse"}
               valor={`${latest.nivel_estresse}`}
+              diffPercent={percentDiff(
+                latest.nivel_estresse,
+                previous ? previous.nivel_estresse : null
+              )}
               text="/10"
               category={"nivel_estresse"}
             />
@@ -211,6 +234,10 @@ const Dashboard = () => {
               icon={getIcon("sono")}
               title={"Sono"}
               valor={`${latest.sono}`}
+              diffPercent={percentDiff(
+                latest.sono,
+                previous ? previous.sono : null
+              )}
               text="horas"
               category={"sono"}
             />
@@ -218,6 +245,10 @@ const Dashboard = () => {
               icon={getIcon("trabalho_horas")}
               title={"Horas de Trabalho"}
               valor={`${latest.trabalho_horas}`}
+              diffPercent={percentDiff(
+                latest.trabalho_horas,
+                previous ? previous.trabalho_horas : null
+              )}
               text="horas"
               category={"trabalho_horas"}
             />
@@ -225,6 +256,10 @@ const Dashboard = () => {
               icon={getIcon("atividade_fisica")}
               title={"Atividade Física"}
               valor={`${latest.atividade_fisica}`}
+              diffPercent={percentDiff(
+                latest.atividade_fisica,
+                previous ? previous.atividade_fisica : null
+              )}
               text="minutos"
               category={"atividade_fisica"}
             />
@@ -233,6 +268,10 @@ const Dashboard = () => {
               icon={getIcon("tempo_tela")}
               title={"Tempo de Tela"}
               valor={`${latest.tempo_tela}`}
+              diffPercent={percentDiff(
+                latest.tempo_tela,
+                previous ? previous.tempo_tela : null
+              )}
               text="horas"
               category={"tempo_tela"}
             />
@@ -241,6 +280,10 @@ const Dashboard = () => {
                 icon={getIcon("tempo_tela")}
                 title={"Tempo de Tela"}
                 valor={`${latest.tempo_tela}`}
+                diffPercent={percentDiff(
+                  latest.tempo_tela,
+                  previous ? previous.tempo_tela : null
+                )}
                 text="horas"
                 category={"tempo_tela"}
               />
