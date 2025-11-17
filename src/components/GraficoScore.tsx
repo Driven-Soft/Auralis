@@ -29,20 +29,31 @@ interface GraficoScoreProps {
 export default function GraficoScore({ registros }: GraficoScoreProps) {
   const dias = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
-  const dados = registros.map((item) => {
-    const data = new Date(item.dataRegistro);
-    return {
-      dia: dias[data.getDay()],
-      valor: item.score,
-    };
-  });
+  const dados = registros
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(a.dataRegistro).getTime() - new Date(b.dataRegistro).getTime()
+    )
+    .map((item) => {
+      const data = new Date(item.dataRegistro);
+      return {
+        dia: dias[data.getDay()],
+        valor: item.score,
+      };
+    });
 
   return (
     <div className="w-full h-64 mr-6">
       <ResponsiveContainer width="100%" height={280}>
         <LineChart data={dados}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="dia" interval={0} tick={{ fontSize: 12 }} padding={{ left: 0, right: 0 }} />
+          <XAxis
+            dataKey="dia"
+            interval={0}
+            tick={{ fontSize: 12 }}
+            padding={{ left: 0, right: 0 }}
+          />
           <YAxis />
           <Tooltip />
           <Line
