@@ -268,13 +268,13 @@ export default function Notificacoes() {
                   </div>
                 )}
 
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3 text-gray-900 dark:text-gray-100">
                   <label className="flex items-center gap-2">
                     <input type="checkbox" {...register("email")} />
                     Receber via Email
                   </label>
 
-                  <label className="flex items-center gap-2">
+                  <label className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
                     <input type="checkbox" {...register("whatsapp")} />
                     Receber via WhatsApp
                   </label>

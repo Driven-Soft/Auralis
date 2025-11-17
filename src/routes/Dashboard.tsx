@@ -24,12 +24,17 @@ import GraficoScore from "../components/GraficoScore";
 import ButtonWrapper from "../components/ButtonWrapper";
 import MetricaCard from "../components/MetricaCard";
 import type { MetricaType } from "../types/metricaType";
+import RegistroModal from "../components/RegistroModal";
 
 const Dashboard = () => {
   const { apiUrl } = useApi();
   const { user: contextUser } = useUser();
   const [registros, setRegistros] = useState<dashboardType[] | null>(null);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleRefresh = () => setRefreshKey((k) => k + 1);
 
   useEffect(() => {
     async function loadRegistros() {
@@ -61,7 +66,7 @@ const Dashboard = () => {
     }
 
     loadRegistros();
-  }, [apiUrl, contextUser]);
+  }, [apiUrl, contextUser, refreshKey]);
 
   // FALLBACK -> SEM REGISTROS
   const latest: dashboardType =
@@ -187,12 +192,22 @@ const Dashboard = () => {
             </section>
           </div>
           <hr className="mx-auto border-t-2 rounded-3xl w-[90%] lg:w-[50%] mt-8 border-gray-300 dark:border-gray-500" />
+
           <section className="py-8 px-6 items-center justify-center text-left w-[90%] md:w-[50%] mx-auto">
-            <ButtonWrapper className="bg-secondary text-white dark:bg-secondary border-2 gap-2">
+            <ButtonWrapper
+              className="bg-secondary text-white dark:bg-secondary border-2 gap-2"
+              onClick={() => setOpen(true)}
+            >
               <Plus />
               Adicionar registro diário
             </ButtonWrapper>
+            <RegistroModal
+              open={open}
+              onClose={() => setOpen(false)}
+              onSuccess={handleRefresh}
+            />
           </section>
+
           <hr className="mx-auto border-t-2 rounded-3xl w-[90%] lg:w-[50%] mb-4 border-gray-300 dark:border-gray-500" />
           <section className="py-2 px-2 w-[90%] sm:px-10 text-lg sm:text-2xl text-gray-800 dark:text-white font-bold mb-4 flex flex-row items-center gap-2 flex-nowrap justify-center sm:justify-start text-center sm:text-left mx-auto sm:mx-0">
             <h1>Últimas Métricas Registradas</h1>
