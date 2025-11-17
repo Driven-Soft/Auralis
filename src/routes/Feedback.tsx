@@ -1,8 +1,7 @@
 import {
   HeartHandshakeIcon,
   MessageSquare,
-  MessageSquareHeart,
-  MoveLeft,
+  MessageSquareHeart
 } from "lucide-react";
 import ButtonWrapper from "../components/ButtonWrapper";
 import Hero from "../components/Hero";
@@ -13,8 +12,6 @@ import { useApi } from "../context/Api/useApi";
 import { useUser } from "../context/User/useUser";
 import type { FeedbackType } from "../types/feedbackType";
 import CardWrapper from "../components/CardWrapper";
-import { Link } from "react-router-dom";
-
 const Feedback = () => {
   const {
     register,
@@ -66,13 +63,6 @@ const Feedback = () => {
         icon={<MessageSquareHeart color="white" />}
         iconClassName="bg-linear-to-r from-blue-400 to-blue-600 shadow-glow-blue"
       />
-
-      <div className="w-[95%] lg:w-[70%] mx-auto pl-2 mt-6 text-gray-700 dark:text-gray-400">
-        <Link to="/dashboard" className="flex flex-row items-center">
-          <MoveLeft className="mt-1 mr-2" />
-          Voltar para seu perfil
-        </Link>
-      </div>
 
       <CardWrapper className="items-center my-4 mx-2">
         {isLoading ? (

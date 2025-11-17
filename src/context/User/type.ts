@@ -3,6 +3,7 @@ export interface User {
   nome: string;
   email: string;
   senha: string;
+  telefone: string;
   genero: string;
   data_nascimento: string;
   data_cadastro: string;
@@ -11,7 +12,10 @@ export interface User {
 export interface UserContextType {
   user: User | null;
   setUser: (user: User | null) => void;
-  login: (email: string, senha: string) => Promise<{
+  login: (
+    email: string,
+    senha: string
+  ) => Promise<{
     success: boolean;
     message?: string;
     user: User | null;

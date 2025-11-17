@@ -60,6 +60,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         nome: userRaw.nome ?? "",
         email: userRaw.email ?? "",
         senha: userRaw.senha ?? "",
+        telefone: userRaw.telefone ?? userRaw.telefone ?? "",
         genero: userRaw.genero ?? "",
         data_nascimento: userRaw.nascimento ?? userRaw.data_nascimento ?? "",
         data_cadastro: userRaw.dataCadastro ?? userRaw.data_cadastro ?? "",

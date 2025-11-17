@@ -25,6 +25,7 @@ const Cadastro = () => {
     defaultValues: {
       nome: "",
       email: "",
+      telefone: "",
       nascimento: "",
       genero: "",
       senha: "",
@@ -87,6 +88,7 @@ const Cadastro = () => {
     const payload = {
       nome: data.nome,
       email: data.email,
+      telefone: data.telefone,
       nascimento: nascimentoISO ?? data.nascimento,
       genero: data.genero,
       senha: data.senha,
@@ -106,7 +108,9 @@ const Cadastro = () => {
       const result = await res.json().catch(() => null);
       console.log("Dados enviados com sucesso:", result ?? data);
       reset();
-      setSuccess("Cadastro realizado com sucesso! Você já pode fazer login clicando no botão acima!");
+      setSuccess(
+        "Cadastro realizado com sucesso! Você já pode fazer login clicando no botão acima!"
+      );
     } catch (err) {
       console.error("Erro de rede ao cadastrar:", err);
       setError("Erro ao conectar com o servidor. Tente novamente.");
@@ -161,6 +165,26 @@ const Cadastro = () => {
             {errors.email && (
               <p className="text-xs text-red-500 mt-1">
                 {errors.email.message}
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col">
+            <LabelWrapper>Telefone</LabelWrapper>
+            <input
+              {...register("telefone", {
+                required: "Telefone é obrigatório",
+                pattern: {
+                  value: /^\+?[0-9\s()-]{6,20}$/,
+                  message: "Formato de telefone inválido",
+                },
+              })}
+              className="text-gray-800 px-3 dark:text-white w-full input input-bordered bg-blue-50 p-2 rounded-lg border placeholder:font-light dark:placeholder:text-gray-400 border-gray-200 dark:bg-gray-800 dark:border-gray-600"
+              placeholder="(99) 99999-9999"
+            />
+            {errors.telefone && (
+              <p className="text-xs text-red-500 mt-1">
+                {errors.telefone.message}
               </p>
             )}
           </div>
@@ -233,7 +257,9 @@ const Cadastro = () => {
 
           <div className="flex items-center justify-center w-full">
             {success ? (
-              <ButtonWrapper className="w-[95%] mt-2 px-4" to="/#login">Voltar para o login</ButtonWrapper>
+              <ButtonWrapper className="w-[95%] mt-2 px-4" to="/#login">
+                Voltar para o login
+              </ButtonWrapper>
             ) : (
               <button
                 type="submit"
