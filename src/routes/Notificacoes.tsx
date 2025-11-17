@@ -17,6 +17,9 @@ export default function Notificacoes() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
+  const [inactiveRegistered, setInactiveRegistered] = useState(false);
+  const [unsubscribed, setUnsubscribed] = useState(false);
 
   const { register, handleSubmit, reset } = useForm<NotificacaoType>({
     defaultValues: { email: false, whatsapp: false },
@@ -52,11 +55,86 @@ export default function Notificacoes() {
         reset();
       } else {
         const body = await res.text().catch(() => null);
-        console.error("Falha ao enviar contato:", res.status, body);
-        setError("Falha ao enviar inscrição. Tente novamente mais tarde.");
+        // Usuário já inscrito (conflito)
+        if (res.status === 409) {
+          setAlreadyRegistered(true);
+          // Usuário possui inscrição inativa (mensagem do servidor)
+        } else if (
+          res.status === 400 &&
+          body &&
+          body.includes("inscrição inativa")
+        ) {
+          setInactiveRegistered(true);
+        } else {
+          console.error("Falha ao enviar contato:", res.status, body);
+          setError("Falha ao enviar inscrição. Tente novamente mais tarde.");
+        }
       }
     } catch (err) {
       console.error("Erro de rede ao enviar contato:", err);
+      setError("Erro de rede. Verifique sua conexão e tente novamente.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleReactivate = async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      const payload = {
+        idUsuario: user?.id_usuario ?? 0,
+        status: "A",
+      };
+
+      const res = await fetch(`${apiUrl}inscricoes/${user?.id_usuario ?? 0}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        setShowSuccess(true);
+        setInactiveRegistered(false);
+        setAlreadyRegistered(false);
+      } else {
+        const body = await res.text().catch(() => null);
+        console.error("Falha ao reativar inscrição:", res.status, body);
+        setError("Falha ao reativar inscrição. Tente novamente mais tarde.");
+      }
+    } catch (err) {
+      console.error("Erro de rede ao reativar inscrição:", err);
+      setError("Erro de rede. Verifique sua conexão e tente novamente.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleUnsubscribe = async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      const payload = {
+        idUsuario: user?.id_usuario ?? 0,
+        status: "I",
+      };
+
+      const res = await fetch(`${apiUrl}inscricoes/${user?.id_usuario ?? 0}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        setUnsubscribed(true);
+        setAlreadyRegistered(false);
+      } else {
+        const body = await res.text().catch(() => null);
+        console.error("Falha ao retirar inscrição:", res.status, body);
+        setError("Falha ao retirar inscrição. Tente novamente mais tarde.");
+      }
+    } catch (err) {
+      console.error("Erro de rede ao retirar inscrição:", err);
       setError("Erro de rede. Verifique sua conexão e tente novamente.");
     } finally {
       setIsLoading(false);
@@ -82,7 +160,75 @@ export default function Notificacoes() {
           </div>
         ) : (
           <>
-            {showSuccess ? (
+            {unsubscribed ? (
+              <div className="flex flex-col items-center gap-2 min-h-[90%]">
+                <p className="text-green-400 text-center font-semibold text-lg">
+                  Notificações canceladas!
+                </p>
+                <p className="text-center text-gray-700 dark:text-gray-200">
+                  Você não receberá mais notificações.
+                </p>
+                <CalendarCheck className="w-16 h-16 text-green-400" />
+
+                <ButtonWrapper className="mt-4" to="/dashboard">
+                  Voltar
+                </ButtonWrapper>
+              </div>
+            ) : alreadyRegistered ? (
+              <div className="flex flex-col items-center gap-4 min-h-[90%] w-full">
+                <p className="text-center text-gray-800 dark:text-white font-semibold text-lg">
+                  Você já está cadastrado para receber notificações!
+                </p>
+                {error && (
+                  <div className="text-center mb-2 w-full">
+                    <p className="text-red-600">{error}</p>
+                  </div>
+                )}
+
+                <div className="w-full max-w-xs mt-2 flex flex-col gap-2">
+                  <ButtonWrapper
+                    onClick={handleUnsubscribe}
+                    className="bg-red-500 text-white"
+                  >
+                    Deseja retirar seu cadastro?
+                  </ButtonWrapper>
+
+                  <ButtonWrapper
+                    className="bg-secondary text-white"
+                    to="/dashboard"
+                  >
+                    Voltar
+                  </ButtonWrapper>
+                </div>
+              </div>
+            ) : inactiveRegistered ? (
+              <div className="flex flex-col items-center gap-4 min-h-[90%] w-full">
+                <p className="text-center text-gray-800 dark:text-white font-semibold text-lg">
+                  Você possui uma inscrição inativa.
+                </p>
+                {error && (
+                  <div className="text-center mb-2 w-full">
+                    <p className="text-red-600">{error}</p>
+                  </div>
+                )}
+
+                <div className="w-full max-w-xs mt-2 flex flex-col gap-2">
+                  <ButtonWrapper
+                    onClick={handleReactivate}
+                    className="bg-secondary text-white"
+                  >
+                    Reative suas notificações
+                  </ButtonWrapper>
+
+                  <ButtonWrapper
+                    className="bg-secondary text-white"
+                    to="/dashboard"
+                  >
+                    Voltar
+                  </ButtonWrapper>
+                </div>
+              </div>
+            ) : showSuccess ? (
               <div className="flex flex-col items-center gap-2 min-h-[90%]">
                 <p className="text-green-400 text-center font-semibold text-lg">
                   Inscrição feita com sucesso!
