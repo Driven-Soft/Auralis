@@ -1,6 +1,6 @@
-import type { ReactNode } from "react"
-import { useNavigate } from "react-router-dom"
- 
+import type { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
+
 interface WrapperProps {
   children: ReactNode;
   className?: string;
@@ -10,21 +10,30 @@ interface WrapperProps {
   type?: string;
 }
 
-const ButtonWrapper = ({ onClick, children, className = "", to, href }: WrapperProps) => {
-  const navigate = useNavigate()
+const ButtonWrapper = ({
+  onClick,
+  children,
+  className = "",
+  to,
+  href,
+}: WrapperProps) => {
+  const navigate = useNavigate();
 
   const handleClick = () => {
     if (to) {
-      navigate(to)
+      navigate(to);
     } else if (href) {
-      window.open(href, "_blank")
+      window.open(href, "_blank");
     }
 
     if (onClick) {
-      onClick()
+      onClick();
     }
-  }
- 
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="flex justify-center w-full">
       <button
@@ -44,7 +53,7 @@ const ButtonWrapper = ({ onClick, children, className = "", to, href }: WrapperP
         {children}
       </button>
     </div>
-  )
-}
- 
+  );
+};
+
 export default ButtonWrapper;

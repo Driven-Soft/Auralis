@@ -17,7 +17,7 @@ const IntegranteDetalhe = () => {
     return (
       <Wrapper>
         <div className="text-center py-10">
-          <p className="text-4xl">Integrante não encontrado.</p>
+          <p className="text-4xl text-texto-primary dark:text-gray-100">Integrante não encontrado.</p>
           <div className="w-[40%] mt-6 mx-auto">
             <ButtonWrapper to="/integrantes">
               Voltar aos integrantes

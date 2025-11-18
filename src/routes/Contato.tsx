@@ -2,6 +2,7 @@ import { Contact, Mail, Phone } from "lucide-react";
 import Hero from "../components/Hero";
 import Wrapper from "../components/Wrapper";
 import CardWrapper from "../components/CardWrapper";
+import ButtonWrapper from "../components/ButtonWrapper";
 
 const Contato = () => {
   return (
@@ -57,6 +58,23 @@ const Contato = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+         <hr className="mx-auto border-t-2 rounded-3xl w-[90%] lg:w-[70%] mt-8 border-gray-300 dark:border-gray-500" />
+        
+        <div className="text-center">
+          <h1 className="py-2 text-2xl font-bold mt-4 text-secondary pb-4">
+            Deseja entrar em contato com nossos desenvolvedores?
+          </h1>
+          <p className="px-4 pb-5 text-texto-primary dark:text-gray-100">
+            Descobra mais sobre nossa equipe e como contribuir para o Auralis
+            clicando aqui:
+          </p>
+        </div>
+          <div className="w-fit">
+            <ButtonWrapper to="/integrantes" className="px-4 w-fit">
+              Conheça os Desenvolvedores
+            </ButtonWrapper>
           </div>
         </CardWrapper>
       </section>
