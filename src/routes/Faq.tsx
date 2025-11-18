@@ -46,7 +46,7 @@ const Faq = () => {
             <span className="border-t border-2 rounded-lg border-gray-200 dark:border-gray-700" />
             <FaqCard
               titulo="O que significam as cores nas métricas?"
-              detalhes="Verde indica que a métrica está em um nível saudável, amarelo sugere atenção (valores limítrofes) e vermelho indica que você deve focar em melhorar aquela área específica. As cores ajudam a identificar rapidamente onde você precisa dedicar mais atenção."
+              detalhes="Verde indica que a métrica está em ascensão em relação a um registro anterior, vermelho indica que você deve focar em melhorar aquela área específica, pois teve um número inferior ao anterior. As cores ajudam a identificar rapidamente onde você precisa dedicar mais atenção."
             />
             <span className="border-t border-2 rounded-lg border-gray-200 dark:border-gray-700" />
             <FaqCard
