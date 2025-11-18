@@ -1,4 +1,4 @@
-# 🔥 Auralis - ```Global Solution 2025/2```
+# 🔥 Auralis - `Global Solution 2025/2`
 
 Projeto Front-end da disciplina Front-End Design Engineering — implementado com **React + Vite + TypeScript**.
 
@@ -9,6 +9,7 @@ Projeto Front-end da disciplina Front-End Design Engineering — implementado co
 Auralis é uma aplicação web responsiva para registro e acompanhamento de hábitos diários com foco em bem-estar. O sistema permite registrar dados como hidratação, sono, nível de estresse, exposição ao sol, tempo de tela, horas trabalhadas e atividade física. A partir desses dados, a aplicação calcula um Score de Bem-Estar (0–100) e oferece visualizações (gráficos) para acompanhamento da evolução.
 
 ### 🌐 Link do Repositório:
+
 > ##### https://github.com/Driven-Soft/Auralis
 
 ## 2. 🚀 Status do Projeto
@@ -56,6 +57,7 @@ Auralis é uma aplicação web responsiva para registro e acompanhamento de háb
 Pré-requisitos: `node` (v16+ recomendado) e `npm`.
 
 Clone o repositório do Github:
+
 ```powershell
 git clone https://github.com/Driven-Soft/Auralis.git
 ```
@@ -86,21 +88,24 @@ npm run preview
 
 ## 7. 🧭 Como Usar
 
-#### Acesse a aplicação publicada na ```Vercel```:
+#### Acesse a aplicação publicada na `Vercel`:
+
 > https://auralis-gs.vercel.app/
 
-#### A aplicação consome a API criada com Java hospedada no ```Render```:
+#### A aplicação consome a API criada com Java hospedada no `Render`:
+
 > https://auralis-api.onrender.com/
 
 **Para usar a aplicação**, use a conta já criada para visualizar uma conta com dados já feitos, ainda que é possível criar uma nova.
 
- Depois de ter feito o login no Home, você será redirecionado ao Dashboard onde verá dados de registros e poderá realizar novos registros diariamente para acompanhar dados relacionados ao seu bem-estar.
- 
- **❗ É comum que o Login demore pois a API é derrubada após 15 minutos de inatividade, demorando aproximadamente 20-30 segundos pra subir novamente ao ocorrer uma requisição nova.**
+Depois de ter feito o login no Home, você será redirecionado ao Dashboard onde verá dados de registros e poderá realizar novos registros diariamente para acompanhar dados relacionados ao seu bem-estar.
+
+**❗ É comum que o Login demore pois a API é derrubada após 15 minutos de inatividade, demorando aproximadamente 20-30 segundos pra subir novamente ao ocorrer uma requisição nova.**
+
 <hr>
 
-* ### Conta mockup para teste/visualização do sistema:
-**LOGIN: `felipe@exemplo.com`**
+- ### Conta mockup para teste/visualização do sistema:
+  **LOGIN: `felipe@exemplo.com`**
 
 **SENHA: `123456`**
 
@@ -138,28 +143,29 @@ Arquivos principais de configuração: `vite.config.ts`, `tsconfig.json`, `packa
 - `/... (ErrorPage)` — Landing page caso haja problema de redirecionamento/URL errada
 
 ### API — Endpoints consumidos:
+
 > **apiUrl = `https://auralis-api.onrender.com/`**
 
 - **Cadastro.tsx**:
-    - **Endpoint**: `POST ${apiUrl}usuarios`
-    - **Descrição:** *Envia os dados de cadastro para criar um novo usuário.*
+  - **Endpoint**: `POST ${apiUrl}usuarios`
+  - **Descrição:** _Envia os dados de cadastro para criar um novo usuário._
 - **UserProvider.tsx**:
-    - **Endpoint**: `POST ${apiUrl}usuarios/login`
-    - **Descrição:** *Envia os dados de login e retorna as informações da tabela usuários (autenticação simples).*
+  - **Endpoint**: `POST ${apiUrl}usuarios/login`
+  - **Descrição:** _Envia os dados de login e retorna as informações da tabela usuários (autenticação simples)._
 - **Notificacoes.tsx**:
-    - **Endpoint**: `POST ${apiUrl}inscricoes`
-    - **Endpoint**: `PUT ${apiUrl}inscricoes/${user?.id_usuario}`
-    - **Descrição:** *POST inscreve o ID do usuário na tabela de notificações, PUT altera o estado da inscrição como Ativo 'A' ou Inativo 'I'.* 
+  - **Endpoint**: `POST ${apiUrl}inscricoes`
+  - **Endpoint**: `PUT ${apiUrl}inscricoes/${user?.id_usuario}`
+  - **Descrição:** _POST inscreve o ID do usuário na tabela de notificações, PUT altera o estado da inscrição como Ativo 'A' ou Inativo 'I'._
 - **Feedback.tsx**:
-    - **Endpoint**: `POST ${apiUrl}feedbacks`
-    - **Descrição:** *Envia o feedback do usuário.*
+  - **Endpoint**: `POST ${apiUrl}feedbacks`
+  - **Descrição:** _Envia o feedback do usuário._
 - **Dashboard.tsx**:
-    - **Endpoint**: `GET ${apiUrl}registros/usuario/${userId}/semana`
-    - **Descrição:** *Retorna os últimos 7 registros do usuário pro gráfico.*
+  - **Endpoint**: `GET ${apiUrl}registros/usuario/${userId}/semana`
+  - **Descrição:** _Retorna os últimos 7 registros do usuário pro gráfico._
 - **RegistroModal.tsx**:
-    - **Endpoint**: `POST ${apiUrl}registros`
-    - **Endpoint**: `DELETE ${apiUrl}registros/${recordId}`
-    - **Descrição:** *POST envia registros, DELETE deleta o registro baseado no ID devolvido do POST.*
+  - **Endpoint**: `POST ${apiUrl}registros`
+  - **Endpoint**: `DELETE ${apiUrl}registros/${recordId}`
+  - **Descrição:** _POST envia registros, DELETE deleta o registro baseado no ID devolvido do POST._
 
 A `apiUrl` é definida em `src/context/Api/ApiProvider.tsx`.
 
@@ -179,43 +185,42 @@ A `apiUrl` é definida em `src/context/Api/ApiProvider.tsx`.
 
 ### Screenshots:
 
-* ##### ```Página Home antes de fazer Login:```
+- ##### `Página Home antes de fazer Login:`
 
 ![Home](/public/screenshots/home.png)
 
-* ##### ```Visualização do Dashboard:```
+- ##### `Visualização do Dashboard:`
 
 ![Dashboard](/public/screenshots/dashboard.png)
 
 ![Dashboard](/public/screenshots/dashboard_2.png)
 
-* ##### ```Novo registro no Dashboard:```
+- ##### `Novo registro no Dashboard:`
 
 ![Registro](/public/screenshots/novo_registro.png)
 
-* ##### ```Página de dicas de saúde:```
+- ##### `Página de dicas de saúde:`
 
 ![Dicas](/public/screenshots/dicas.png)
 
-* ##### ```Página de integrantes:```
+- ##### `Página de integrantes:`
 
 ![Integrantes](/public/screenshots/integrantes.png)
-
 
 ## 12. 👥 Contato
 
 - #### Felipe Bezerra Beatrici — RM: 564723 — 1TDSPK <br> GitHub: https://github.com/FelipeBeatriz <br> LinkedIn: https://www.linkedin.com/in/felipe-beatrici/<br> Email: `felipe.beatriz199@gmail.com`
 
-![Felipe](/src/assets/images/photos/felipe.png)
+<img src="/src/assets/images/photos/felipe.png" alt="Felipe" width="120" height="120" />
 
 <hr>
 
 - #### Max Hayashi Batista — RM: 563717 — 1TDSPK <br> GitHub: https://github.com/y3llowhusky <br> LinkedIn: https://www.linkedin.com/in/max-hayashi-batista-572622356/<br> Email: `hayashibatista@gmail.com`
 
-![Max](/src/assets/images/photos/max.png)
+<img src="/src/assets/images/photos/max.png" alt="Max" width="120" height="120" />
 
 <hr>
 
 - #### Henrique Cunha Torres — RM: 565119 — 1TDSPK <br> GitHub: https://github.com/HenriqueCTorres <br> LinkedIn: https://www.linkedin.com/in/henrich1/ <br> Email: `henriquect08@gmail.com`
 
-![Henrique](/src/assets/images/photos/henrique.png)
+<img src="/src/assets/images/photos/henrique.png" alt="Henrique" width="120" height="120" />
