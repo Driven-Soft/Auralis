@@ -14,6 +14,7 @@ import {
   MessageSquare,
   MonitorSmartphone,
   Phone,
+  PhoneForwarded,
   Plus,
   Sun,
   Zap,
@@ -119,7 +120,7 @@ const Dashboard = () => {
     return (
       <Wrapper>
         <div className="flex flex-row items-center justify-center gap-4 mt-12">
-          <p className="text-xl font-bold text-gray-600 dark:text-gray-300">
+          <p className="text-xl font-bold text-gray-600 dark:text-white">
             Carregando seus dados...
           </p>
           <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin border-gray-400 dark:border-gray-00" />
@@ -357,9 +358,30 @@ const Dashboard = () => {
               </div>
             </CardWrapper>
           </section>
+
+          <section className="flex flex-col w-full md:w-fit px-4 items-center mx-auto gap-4 pb-4">
+            <CardWrapper className="flex-1 w-full">
+              <div className="flex flex-col justify-center mx-auto px-4">
+                <div className="flex flex-1 flex-row gap-2 ">
+                  <div className="w-10 h-10 text-indigo-600 bg-indigo-50 dark:bg-blue-950 dark:text-blue-400  flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700">
+                    <PhoneForwarded />
+                  </div>
+                  <h2 className="text-2xl font-medium text-gray-800 dark:text-white text-center">
+                    Contato
+                  </h2>
+                </div>
+                <div className="pb-5 pt-3 text-sm text-gray-500 dark:text-gray-400">
+                  <p>
+                      Entre em contato conosco para qualquer dúvida, sugestão ou suporte.
+                  </p>
+                </div>
+                <ButtonWrapper to="/contato">Fale conosco</ButtonWrapper>
+              </div>
+            </CardWrapper>
+          </section>
         </>
       ) : (
-        <p>Usuário não autenticado.</p>
+        <p className="text-gray-500">Usuário não autenticado.</p>
       )}
     </Wrapper>
   );

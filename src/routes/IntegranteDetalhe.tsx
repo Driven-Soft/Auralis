@@ -115,7 +115,7 @@ const IntegranteDetalhe = () => {
           {integrante.habilidades.map((tecnologia) => (
             <span
               key={tecnologia}
-              className="mr-2 mb-2 rounded-full hover:bg-gray-100 bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700 dark:bg-blue-700 dark:text-blue-100 whitespace-nowrap"
+              className="mr-2 mb-2 rounded-full hover:bg-gray-100 dark:hover:bg-blue-500 bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700 dark:bg-blue-700 dark:text-blue-100 whitespace-nowrap"
             >
               {tecnologia}
             </span>

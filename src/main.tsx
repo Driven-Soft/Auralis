@@ -9,6 +9,7 @@ import Faq from "./routes/Faq";
 import Integrantes from "./routes/Integrantes";
 import Dicas from "./routes/Dicas";
 import Sobre from "./routes/Sobre";
+import Contato from "./routes/Contato";
 import Dashboard from "./routes/Dashboard";
 import Cadastro from "./routes/Cadastro";
 import { ApiProvider } from "./context/Api/ApiProvider";
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: "integrantes", element: <Integrantes /> },
       { path: "dicas", element: <Dicas /> },
       { path: "sobre", element: <Sobre /> },
+      { path: "contato", element: <Contato /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "cadastro", element: <Cadastro /> },
       { path: "integrantes/:rm", element: <IntegranteDetalhe /> },

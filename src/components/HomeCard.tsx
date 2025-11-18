@@ -17,7 +17,7 @@ const UserCard = ({ title, texto, icon, iconClassName }: UserCardProps) => {
   }
 
   return (
-    <CardWrapper className="flex-col gap-1 w-full hover:scale-102 cursor-pointer transition-transform">
+    <CardWrapper className="flex-col gap-1 w-full hover:scale-102 transition-transform">
       <div>
         {sizedIcon && (
           <div className={`flex justify-center ${iconClassName ?? ""}`}>
