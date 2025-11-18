@@ -22,12 +22,14 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [recordId, setRecordId] = useState<number | null>(null);
   const [showError, setShowError] = useState(false);
+  const [dailyLimitReached, setDailyLimitReached] = useState(false);
 
   useEffect(() => {
     if (!open) {
       setIsLoading(false);
       setRecordId(null);
       setShowError(false);
+      setDailyLimitReached(false);
     }
   }, [open]);
 
@@ -37,6 +39,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
     try {
       setIsLoading(true);
       setShowError(false);
+      setDailyLimitReached(false);
 
       const payload: RegistroFormType = {
         idUsuario: user?.id_usuario ?? 0,
@@ -58,7 +61,18 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
       });
 
       if (!res.ok) {
-        console.error("Erro ao enviar registro:", res.status, await res.text());
+        const text = await res.text().catch(() => "");
+        console.error("Erro ao enviar registro:", res.status, text);
+        // If server indicates a record was already created today, show user-facing message
+        if (
+          res.status === 409 ||
+          (typeof text === "string" &&
+            text.includes("REGISTRO_JA_REALIZADO_HOJE"))
+        ) {
+          setDailyLimitReached(true);
+          return;
+        }
+
         return;
       }
 
@@ -155,6 +169,27 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
               >
                 {isLoading ? "Processando..." : "Fechar"}
               </button>
+            </div>
+          </div>
+        ) : dailyLimitReached ? (
+          <div className="w-full flex flex-col items-center justify-center gap-4">
+            <h2 className="text-xl font-bold text-red-600 dark:text-red-500">
+              Não é possível fazer mais de um registro por dia!
+            </h2>
+            <p className="text-base text-center text-gray-600 dark:text-gray-200">
+              Você já realizou um registro hoje.
+            </p>
+
+            <div className="flex flex-row gap-4 w-full md:w-[90%]">
+              <ButtonWrapper
+                type="button"
+                onClick={() => {
+                  setDailyLimitReached(false);
+                  onClose();
+                }}
+              >
+                Voltar
+              </ButtonWrapper>
             </div>
           </div>
         ) : (
