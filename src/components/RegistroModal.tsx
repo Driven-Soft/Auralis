@@ -21,6 +21,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
   const { apiUrl } = useApi();
   const [isLoading, setIsLoading] = useState(false);
   const [recordId, setRecordId] = useState<number | null>(null);
+  const [deleted, setDeleted] = useState(false);
   const [showError, setShowError] = useState(false);
   const [dailyLimitReached, setDailyLimitReached] = useState(false);
 
@@ -30,6 +31,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
       setRecordId(null);
       setShowError(false);
       setDailyLimitReached(false);
+      setDeleted(false);
     }
   }, [open]);
 
@@ -117,7 +119,7 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
 
       console.log("Registro deletado:", recordId);
       setRecordId(null);
-      onClose();
+      setDeleted(true);
     } catch (err) {
       console.error("Erro de rede ao deletar registro:", err);
     } finally {
@@ -136,7 +138,30 @@ const RegistroModal = ({ open, onClose, onSuccess }: ModalProps) => {
         onClick={(e) => e.stopPropagation()}
         className="flex-col p-6 mx-2"
       >
-        {recordId ? (
+        {deleted ? (
+          <div className="w-full flex flex-col items-center justify-center gap-4">
+            <h2 className="text-xl font-bold text-green-600 dark:text-green-500">
+              Seu último registro foi deletado!
+            </h2>
+            <Check size={48} className="text-green-600 dark:text-green-400" />
+            <p className="text-base text-center text-gray-600 dark:text-gray-200">
+              Seu registro foi removido com sucesso.
+            </p>
+            <div className="flex flex-row gap-4  w-full md:w-[90%]">
+              <button
+                type="button"
+                onClick={() => {
+                  onSuccess?.();
+                  onClose();
+                }}
+                disabled={isLoading}
+                className="flex-1 px-4 py-1 sm:py-3 bg-gray-600 border-gray-500 border hover:bg-gray-500 cursor-pointer transition-all duration-200 ease-in-out text-white rounded-lg disabled:opacity-60"
+              >
+                {isLoading ? "Processando..." : "Fechar"}
+              </button>
+            </div>
+          </div>
+        ) : recordId ? (
           <div className="w-full flex flex-col items-center justify-center gap-4">
             <h2 className="text-xl font-bold text-green-600 dark:text-green-500">
               Registro criado com sucesso!
